@@ -15,6 +15,7 @@ format:
         cr-style:
                 section-background-color: "#0b0d15"
                 narrative-text-color-sidebar: "#fdfdfd"
+                
 ---
 
 :::: cr-section
@@ -24,19 +25,41 @@ Before the 19th century, when stories about the mysterious “ape man” began c
 
 Although the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them." @cr-fire
 
+Perhaps you'd like to explore for yourself the places in Washington State where they've been spotted? @cr-magnify
+
+Click on a sighting for more info @cr-click
+
+Choose which variables you want to represent dot size and color @cr-choices
+
+Select how you want to filter the sightings (at least one per subcategory!) @cr-filter  
+
+Have fun!!! @cr-fire
+
 ::: {#cr-fire}
 ![](images/fire.gif)
 :::
 
+::: {#cr-magnify}
+![](images/magnify_feets.jpg)
+:::
 
-```{r}
-#| label: fig-airquality
-#| fig-cap: "Temperature and ozone level."
-#| warning: false
-library(ggplot2)
-ggplot(airquality, aes(Temp, Ozone)) + 
-  geom_point() + 
-  geom_smooth(method = "loess")
+
+::: {#cr-click}
+![](images/click.gif)
+:::
+
+::: {#cr-choices}
+![](images/choices.gif)
+
+:::
+
+::: {#cr-filter}
+![](images/filter.gif)
+
+:::
+
+```{=html}
+<iframe id="bigfoots-map" width="1400" height="800" src="https://russellshean.shinyapps.io/bigfoot-map-shiny" title="bigfoot-shiny-app"></iframe>
 ```
 
 
