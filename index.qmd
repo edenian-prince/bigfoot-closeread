@@ -12,9 +12,9 @@ format:
         code-fold: true
         cr-section:
                 layout: sidebar-left
-        cr-style:
-                section-background-color: "#0b0d15"
-                narrative-text-color-sidebar: "#fdfdfd"
+        # cr-style:
+        #         section-background-color: "#0b0d15"
+        #         narrative-text-color-sidebar: "#fdfdfd"
                 
 ---
 
@@ -25,7 +25,7 @@ Before the 19th century, when stories about the mysterious “ape man” began c
 
 Although the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them." @cr-fire
 
-Perhaps you'd like to explore for yourself the places in Washington State where they've been spotted? @cr-magnify
+<!-- Perhaps you'd like to explore for yourself the places in Washington State where they've been spotted? @cr-magnify
 
 Click on a sighting for more info @cr-click
 
@@ -33,13 +33,114 @@ Choose which variables you want to represent dot size and color @cr-choices
 
 Select how you want to filter the sightings (at least one per subcategory!) @cr-filter  
 
-Have fun!!! @cr-fire
+Have fun!!! @cr-fire -->
 
 ::: {#cr-fire}
 ![](images/fire.gif)
 :::
 
-::: {#cr-magnify}
+let's take a look @cr-map
+
+:::{#cr-map}
+
+```{r}
+#| message: false
+#| warning: false
+options(box.path = getwd())
+box::use(
+  dplyr[...],
+  rvest[...],
+  magrittr[`%>%`],
+  janitor[...],
+  purrr[...],
+  usmap[...],
+  ggplot2[...],
+  stringr[...],
+  leaflet[...],
+  sf[...],
+  plotly[...]
+
+)
+load("data/Bigfoot_county_aggregations.rda")
+load("data/bigfoot_county_date_aggregations.rda")
+load("data/bigfoot_points.rda")
+load("data/season_columns.rda")
+load("data/statewide_date_aggregations.rda")
+load("data/wa_counties.rda")
+load("data/wa_counties2.rda")
+
+BigFootIcon <- makeIcon(
+    iconUrl = "https://images.fineartamerica.com/images/artworkimages/medium/3/gluten-free-cute-bigfoot-cartoon-noirty-designs-transparent.png",
+    iconWidth = 38 ,
+    iconAnchorX = 22,
+    iconAnchorY = 24
+  )
+
+library(plotly)
+df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_february_us_airport_traffic.csv')
+
+# geo styling
+g <- list(
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
+  showland = TRUE,
+  landcolor = toRGB("gray95"),
+  subunitcolor = toRGB("gray85"),
+  countrycolor = toRGB("gray85"),
+  countrywidth = 0.5,
+  subunitwidth = 0.5
+)
+
+fig <- plot_geo(df, lat = ~lat, lon = ~long)
+fig <- fig %>% add_markers(
+    text = ~paste(airport, city, state, paste("Arrivals:", cnt), sep = "<br />"),
+    color = ~cnt, symbol = I("square"), size = I(8), hoverinfo = "text"
+  )
+fig <- fig %>% colorbar(title = "Incoming flights<br />February 2011")
+fig <- fig %>% layout(
+    title = 'Most trafficked US airports<br />(Hover for airport)', geo = g
+)
+
+# plotly
+plot_ly() %>%
+  layout(
+    geo = list(
+      projection = list(type = 'mercator'),
+      scope = 'world',
+      showland = FALSE,
+      showcoastlines = FALSE,
+      showlakes = FALSE,
+      showcountries = FALSE,
+      lakecolor = 'transparent'
+    ),
+    paper_bgcolor = 'rgba(0,0,0,0)',
+    plot_bgcolor = 'rgba(0,0,0,0)',
+    width = 300,  # Set width to 300px
+    height = 300  # Set height to 300px
+  )
+
+#library
+library(leaflet)
+ 
+# Create 20 markers (Random points)
+data = data.frame(
+   long=sample(seq(-150,150),20),
+   lat=sample(seq(-50,50),20),
+   val=round(rnorm(20),2),
+   name=paste("point",letters[1:20],sep="_")
+) 
+ 
+# Show a circle at each position
+m = leaflet(data = data) %>%
+   addTiles() %>%
+   addCircleMarkers(~long, ~lat , popup = ~as.character(name))
+m
+
+```
+:::
+
+
+<!-- ::: {#cr-magnify}
 ![](images/magnify_feets.jpg)
 :::
 
@@ -56,11 +157,23 @@ Have fun!!! @cr-fire
 ::: {#cr-filter}
 ![](images/filter.gif)
 
-:::
+::: -->
+
+
+
+
+::::
+
+```{r}
+# Show a circle at each position
+m = leaflet(data = data) %>%
+   addTiles() %>%
+   addCircleMarkers(~long, ~lat , popup = ~as.character(name))
+m
+```
+
+Here's the full shiny app!
 
 ```{=html}
 <iframe id="bigfoots-map" width="1400" height="800" src="https://russellshean.shinyapps.io/bigfoot-map-shiny" title="bigfoot-shiny-app"></iframe>
 ```
-
-
-::::
