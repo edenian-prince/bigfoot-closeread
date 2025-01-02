@@ -12,11 +12,44 @@ format:
         code-fold: true
         cr-section:
                 layout: sidebar-left
-        # cr-style:
-        #         section-background-color: "#0b0d15"
-        #         narrative-text-color-sidebar: "#fdfdfd"
+        cr-style:
+                section-background-color: "#0b0d15"
+                narrative-text-color-sidebar: "#fdfdfd"
                 
 ---
+
+```{r}
+#| output: false
+#| message: false
+#| warning: false
+options(box.path = getwd())
+box::use(
+  dplyr[...],
+  rvest[...],
+  magrittr[`%>%`],
+  janitor[...],
+  purrr[...],
+  usmap[...],
+  ggplot2[...],
+  stringr[...],
+  leaflet[...],
+  sf[...],
+  plotly[...],
+  ggmap[...],
+  scales[...],
+  hrbrthemes[...],
+  lubridate[...]
+
+)
+
+load("data/Bigfoot_county_aggregations.rda")
+load("data/bigfoot_county_date_aggregations.rda")
+load("data/bigfoot_points.rda")
+load("data/season_columns.rda")
+load("data/statewide_date_aggregations.rda")
+load("data/wa_counties.rda")
+load("data/wa_counties2.rda")
+```
 
 :::: cr-section
 "Few creatures have more speculation and anecdotal evidence surrounding them than Sasquatch does... @cr-fire
@@ -39,36 +72,120 @@ Have fun!!! @cr-fire -->
 ![](images/fire.gif)
 :::
 
-let's take a look @cr-map
 
-:::{#cr-map}
+
+let's take a look at bigfoot reports in Washington over time. @cr-time
+
+:::{#cr-time}
 
 ```{r}
 #| message: false
 #| warning: false
-options(box.path = getwd())
-box::use(
-  dplyr[...],
-  rvest[...],
-  magrittr[`%>%`],
-  janitor[...],
-  purrr[...],
-  usmap[...],
-  ggplot2[...],
-  stringr[...],
-  leaflet[...],
-  sf[...],
-  plotly[...]
 
-)
-load("data/Bigfoot_county_aggregations.rda")
-load("data/bigfoot_county_date_aggregations.rda")
-load("data/bigfoot_points.rda")
-load("data/season_columns.rda")
-load("data/statewide_date_aggregations.rda")
-load("data/wa_counties.rda")
-load("data/wa_counties2.rda")
+df <- bigfoot_points %>%
+  count(year_as_date) |>
+      arrange(year_as_date) |>
+      mutate(cumulative = cumsum(n))
 
+plot <- function(data=df,f_date='1921-01-01'){
+      df %>%
+            filter(year_as_date <= f_date) %>%
+            ggplot(aes(x=year_as_date,y=cumulative)) +
+                  geom_line(color="#05382c", size=2, alpha=0.9, linetype=1) +
+                  scale_x_date(date_breaks = "20 year", 
+                  labels=date_format("%b-%Y"),
+                  limits = as.Date(c('1920-01-01','2025-04-01'))) +
+                  ylim(0,500) +
+                  # theme_minimal(base_size = 30) +
+                  guides(colour = "none", shape = "none") +
+  labs(x="Year", y="Cumulative Count",
+       title="Cumulative Count of Bigfoot Sightings in WA",
+       subtitle="A really rough estimate..",
+       caption="Note: the year is the year a person reported seeing bigfoot") + 
+  theme_ipsum(grid="Y")
+}
+plot()
+```
+:::
+
+
+There weren't too many sightings, but things start to change around 1970 @cr-time2
+
+:::{#cr-time2}
+
+```{r}
+#| message: false
+#| warning: false
+plot(f_date='1970-01-01') +
+      geom_vline(xintercept = ymd("1970-01-01"), linetype = 4) +
+      annotate(
+            "label",
+            x = ymd("1970-01-01"),
+            y = 200,
+            size = 5,
+            label = "1970") 
+```
+:::
+
+The 80s saw a lot of sightings @cr-time3
+
+:::{#cr-time3}
+
+```{r}
+#| message: false
+#| warning: false
+plot(f_date='1990-01-01') +
+    geom_vline(xintercept = ymd("1970-01-01"), linetype = 4) +
+      annotate(
+            "label",
+            x = ymd("1970-01-01"),
+            y = 200,
+            size = 5,
+            label = "1970") +
+      geom_vline(xintercept = ymd("1990-01-01"), linetype = 4) +
+      annotate(
+            "label",
+            x = ymd("1990-01-01"),
+            y = 300,
+            size = 5,
+            label = "1989") 
+```
+:::
+
+And from there, bigfoot sightings really took off @cr-time4
+
+:::{#cr-time4}
+
+```{r}
+#| message: false
+#| warning: false
+plot(f_date='2025-01-01') +
+    geom_vline(xintercept = ymd("1970-01-01"), linetype = 4) +
+      annotate(
+            "label",
+            x = ymd("1970-01-01"),
+            y = 200,
+            size = 5,
+            label = "1970") +
+      geom_vline(xintercept = ymd("1990-01-01"), linetype = 4) +
+      annotate(
+            "label",
+            x = ymd("1990-01-01"),
+            y = 300,
+            size = 5,
+            label = "1989") 
+```
+:::
+
+Where are people seeing bigfoot? We have some spatial data to help us explore that question that we combined with our timeline. Scroll down to see different time points @cr-map
+
+:::{#cr-map .scale-to-fill}
+
+```{r}
+#| out-width: 800px
+#| out-height: 550px
+#| message: false
+#| warning: false
 BigFootIcon <- makeIcon(
     iconUrl = "https://images.fineartamerica.com/images/artworkimages/medium/3/gluten-free-cute-bigfoot-cartoon-noirty-designs-transparent.png",
     iconWidth = 38 ,
@@ -76,69 +193,115 @@ BigFootIcon <- makeIcon(
     iconAnchorY = 24
   )
 
-library(plotly)
-df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_february_us_airport_traffic.csv')
+popup <- paste0(
+  "<p id='popup-title'><strong>", bigfoot_points$summary, "</strong></p>",
+  "<div id='first-popbox'>",
+  "<strong>Report Date: </strong>", format(as.Date(bigfoot_points$year_as_date), "%B %d, %Y"),
+  "<br><strong>Report Classification: </strong>", bigfoot_points$classification,
+  "<br><strong>Length of Report: </strong>", bigfoot_points$report_length, " characters",
+  "<br><strong>Report Season: </strong>", bigfoot_points$season,
+  "<br><br><strong>County: </strong>", bigfoot_points$county,
+  "<br><strong>Nearest Town: </strong>", bigfoot_points$nearest_town,
+  "<br><strong>Environment: </strong>", bigfoot_points$environment,
+  "</div>",
+  "<div id='second-popbox'>",
+  "<p id='popbox-report-text'><strong>Report text</strong></p><br>",
+  substr(bigfoot_points$observed, 1, 400),"... ",
+  "<br><a href='",bigfoot_points$url, "'>click to see full report</a></div>"
+) %>%
+  lapply(htmltools::HTML)
 
-# geo styling
-g <- list(
-  scope = 'usa',
-  projection = list(type = 'albers usa'),
-  showland = TRUE,
-  landcolor = toRGB("gray95"),
-  subunitcolor = toRGB("gray85"),
-  countrycolor = toRGB("gray85"),
-  countrywidth = 0.5,
-  subunitwidth = 0.5
-)
 
-fig <- plot_geo(df, lat = ~lat, lon = ~long)
-fig <- fig %>% add_markers(
-    text = ~paste(airport, city, state, paste("Arrivals:", cnt), sep = "<br />"),
-    color = ~cnt, symbol = I("square"), size = I(8), hoverinfo = "text"
-  )
-fig <- fig %>% colorbar(title = "Incoming flights<br />February 2011")
-fig <- fig %>% layout(
-    title = 'Most trafficked US airports<br />(Hover for airport)', geo = g
-)
+final<- leaflet()  %>%
 
-# plotly
-plot_ly() %>%
-  layout(
-    geo = list(
-      projection = list(type = 'mercator'),
-      scope = 'world',
-      showland = FALSE,
-      showcoastlines = FALSE,
-      showlakes = FALSE,
-      showcountries = FALSE,
-      lakecolor = 'transparent'
-    ),
-    paper_bgcolor = 'rgba(0,0,0,0)',
-    plot_bgcolor = 'rgba(0,0,0,0)',
-    width = 300,  # Set width to 300px
-    height = 300  # Set height to 300px
-  )
+    # This adds a counties outline
+    addPolylines(data = wa_counties,
+                 color = "#595959") %>%
 
-#library
-library(leaflet)
- 
-# Create 20 markers (Random points)
-data = data.frame(
-   long=sample(seq(-150,150),20),
-   lat=sample(seq(-50,50),20),
-   val=round(rnorm(20),2),
-   name=paste("point",letters[1:20],sep="_")
-) 
- 
-# Show a circle at each position
-m = leaflet(data = data) %>%
-   addTiles() %>%
-   addCircleMarkers(~long, ~lat , popup = ~as.character(name))
-m
+    # this is the style guide recommended grey
+    # addProviderTiles("Esri.WorldImagery") %>%
+    addTiles() %>%
 
+    # this was the fun trees and stuff version
+   # addProviderTiles(providers$Stadia.StamenTerrain)   %>%
+    addMarkers( data = bigfoot_points,
+                label = ~summary,
+                popup = popup,
+                icon = BigFootIcon,
+                group = "default_feets"
+    )
+
+base <- leaflet() %>%
+    addPolylines(
+        data = wa_counties,
+        color = "#59595900"
+    ) %>%
+        addTiles()
+
+base
 ```
 :::
 
+
+Reports up to 1979 @cr-map70s
+
+:::{#cr-map70s .scale-to-fill}
+
+```{r}
+#| out-width: 800px
+#| out-height: 550px
+#| message: false
+#| warning: false
+df <- bigfoot_points %>% filter(year_as_date < '1980-01-01')
+base %>%
+    addMarkers( data = df,
+                label = ~summary,
+                popup = popup,
+                icon = BigFootIcon,
+                group = "default_feets"
+    )
+```
+:::
+
+Reports up to 1989 @cr-map80s
+
+:::{#cr-map80s .scale-to-fill}
+
+```{r}
+#| out-width: 800px
+#| out-height: 550px
+#| message: false
+#| warning: false
+df <- bigfoot_points %>% filter(year_as_date < '1990-01-01')
+base %>%
+    addMarkers( data = df,
+                label = ~summary,
+                popup = popup,
+                icon = BigFootIcon,
+                group = "default_feets"
+    )
+```
+:::
+
+And all reports @cr-map-all
+
+:::{#cr-map-all .scale-to-fill}
+
+```{r}
+#| out-width: 800px
+#| out-height: 550px
+#| message: false
+#| warning: false
+df <- bigfoot_points %>% filter(year_as_date < '2025-01-01')
+base %>%
+    addMarkers( data = df,
+                label = ~summary,
+                popup = popup,
+                icon = BigFootIcon,
+                group = "default_feets"
+    )
+```
+:::
 
 <!-- ::: {#cr-magnify}
 ![](images/magnify_feets.jpg)
@@ -163,14 +326,6 @@ m
 
 
 ::::
-
-```{r}
-# Show a circle at each position
-m = leaflet(data = data) %>%
-   addTiles() %>%
-   addCircleMarkers(~long, ~lat , popup = ~as.character(name))
-m
-```
 
 Here's the full shiny app!
 

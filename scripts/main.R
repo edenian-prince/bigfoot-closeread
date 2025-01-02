@@ -11,7 +11,10 @@ box::use(
   leaflet[...],
   sf[...],
   plotly[...],
-  ggmap[...]
+  ggmap[...],
+  scales[...],
+  hrbrthemes[...],
+  lubridate[...]
 
 )
 
@@ -367,3 +370,154 @@ base +
 
 map <- get_googlemap("Washington, USA")
 
+
+#library
+library(leaflet)
+ 
+# Create 20 markers (Random points)
+data = data.frame(
+   long=sample(seq(-150,150),20),
+   lat=sample(seq(-50,50),20),
+   val=round(rnorm(20),2),
+   name=paste("point",letters[1:20],sep="_")
+) 
+ 
+# Show a circle at each position
+m = leaflet(data = data) %>%
+   addTiles() %>%
+   addCircleMarkers(~long, ~lat , popup = ~as.character(name))
+m
+
+m = leaflet(data = bigfoot_points) %>%
+   addTiles() %>%
+   addCircles(
+      ~lon, ~lat, 
+      radius = 10,  # Adjust radius as needed
+      stroke = TRUE, 
+      fillOpacity = 0.5,
+      popup = ~as.character(report_no)
+   ) %>% 
+    setView(lng = -120.7401, lat = 47.7511, zoom = 7) 
+m
+
+popup <- paste0(
+  "<p id='popup-title'><strong>", bigfoot_points$summary, "</strong></p>",
+  "<div id='first-popbox'>",
+  "<strong>Report Date: </strong>", format(as.Date(bigfoot_points$report_date2), "%B %d, %Y"),
+  "<br><strong>Report Classification: </strong>", bigfoot_points$classification,
+  "<br><strong>Length of Report: </strong>", bigfoot_points$report_length, " characters",
+  "<br><strong>Report Season: </strong>", bigfoot_points$season,
+  "<br><br><strong>County: </strong>", bigfoot_points$county,
+  "<br><strong>Nearest Town: </strong>", bigfoot_points$nearest_town,
+  "<br><strong>Environment: </strong>", bigfoot_points$environment,
+  "</div>",
+  "<div id='second-popbox'>",
+  "<p id='popbox-report-text'><strong>Report text</strong></p><br>",
+  substr(bigfoot_points$observed, 1, 400),"... ",
+  "<br><a href='",bigfoot_points$url, "'>click to see full report</a></div>"
+) %>%
+  lapply(htmltools::HTML)
+
+
+  leaflet()  %>%
+
+    # This adds a counties outline
+    addPolylines(data = wa_counties,
+                 color = "#595959") %>%
+
+    # this is the style guide recommended grey
+    # addProviderTiles("Esri.WorldImagery") %>%
+    addTiles() %>%
+
+    # this was the fun trees and stuff version
+   # addProviderTiles(providers$Stadia.StamenTerrain)   %>%
+    addMarkers( data = bigfoot_points,
+                label = ~summary,
+                popup = popup,
+                icon = BigFootIcon,
+                group = "default_feets"
+    )
+
+    ggplot_standard_theme <- theme(axis.line.y = element_blank(),
+    panel.background = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x = element_text(size = 20),
+    title = element_text(size = 20))
+
+    ggplot(data, aes(x=xValue, y=yValue)) +
+      geom_line( color="#69b3a2", size=2, alpha=0.9, linetype=2) +
+      theme_ipsum() +
+      ggtitle("Evolution of something")
+
+df <- bigfoot_points %>%
+  count(year_as_date) |>
+      arrange(year_as_date) |>
+      mutate(cumulative = cumsum(n))
+
+df %>%
+ggplot(aes(x=year_as_date,y=cumulative)) +
+                  geom_line(color="#05382c", size=2, alpha=0.9, linetype=1) +
+                  scale_x_date(date_breaks = "20 year", 
+                  labels=date_format("%b-%Y"),
+                  limits = as.Date(c('1920-01-01','2025-04-01'))) +
+                  ylim(0,500) +
+                  # theme_minimal(base_size = 30) +
+                  guides(colour = "none", shape = "none") +
+  labs(x="Year", y="Cumulative Count",
+       title="Cumulative Count of Bigfoot Sightings in WA",
+       subtitle="A really rough estimate..",
+       caption="Note: the year is the year a person reported seeing bigfoot") + 
+  theme_ipsum(grid="Y")
+
+
+bigfoot_points %>%
+  count(year_as_date) %>%
+  mutate(percent_of_total = round(n / nrow(bigfoot_points) * 100, digits = 1)) %>%
+  rename(sightings_count = n) %>%
+
+
+  # This pipes the filtered dataset into a ggplot
+  ggplot() +
+  
+  ggplot_standard_theme +
+
+  # create bar chart
+  geom_col(aes(x = year_as_date, y = sightings_count), fill = "#0D6ABF") +
+
+  # define plot aesthetics unique to this plot
+
+  theme(axis.text.x = element_text(size = 12, angle = 45, hjust = 1),
+        axis.text.y = element_text(size = 15)) +
+
+  #define plot labels
+  labs( title = "TOTAL ANNUAL SIGHTINGS COUNT",
+        y = element_blank(),
+        x = "\nYear of Sighting")
+
+
+  bigfoot_points %>%
+
+
+    count(year_as_date) %>%
+    mutate(percent_of_total = round(n / nrow(bigfoot_points) * 100, digits = 1)) %>%
+    rename(sightings_count = n) %>%
+
+
+    # This pipes the filtered dataset into a ggplot
+    ggplot() +
+    
+    ggplot_standard_theme +
+
+    # create bar chart
+    geom_col(aes(x = year_as_date, y = sightings_count), fill = "#0D6ABF") +
+
+    # define plot aesthetics unique to this plot
+
+    theme(axis.text.x = element_text(size = 12, angle = 45, hjust = 1),
+          axis.text.y = element_text(size = 15)) +
+
+    #define plot labels
+    labs( title = "TOTAL ANNUAL SIGHTINGS COUNT",
+          y = element_blank(),
+          x = "\nYear of Sighting")
