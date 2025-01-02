@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.4.2",
+    "Version": "4.4.0",
     "Repositories": [
       {
         "Name": "P3M",
@@ -24,28 +24,11 @@
       ],
       "Hash": "065ae649b05f1ff66bb0c793107508f5"
     },
-    "DT": {
-      "Package": "DT",
-      "Version": "0.33",
-      "Source": "Repository",
-      "Repository": "P3M",
-      "Requirements": [
-        "crosstalk",
-        "htmltools",
-        "htmlwidgets",
-        "httpuv",
-        "jquerylib",
-        "jsonlite",
-        "magrittr",
-        "promises"
-      ],
-      "Hash": "64ff3427f559ce3f2597a4fe13255cb6"
-    },
     "KernSmooth": {
       "Package": "KernSmooth",
       "Version": "2.23-24",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
       "Requirements": [
         "R",
         "stats"
@@ -134,6 +117,13 @@
         "R"
       ],
       "Hash": "543776ae6848fde2f48ff3816d0628bc"
+    },
+    "bitops": {
+      "Package": "bitops",
+      "Version": "1.0-9",
+      "Source": "Repository",
+      "Repository": "P3M",
+      "Hash": "d972ef991d58c19e6efa71b21f5e144b"
     },
     "box": {
       "Package": "box",
@@ -233,13 +223,6 @@
       ],
       "Hash": "d954cb1c57e8d8b756165d7ba18aa55a"
     },
-    "commonmark": {
-      "Package": "commonmark",
-      "Version": "1.9.2",
-      "Source": "Repository",
-      "Repository": "P3M",
-      "Hash": "14eb0596f987c71535d07c3aff814742"
-    },
     "cpp11": {
       "Package": "cpp11",
       "Version": "0.5.0",
@@ -249,18 +232,6 @@
         "R"
       ],
       "Hash": "91570bba75d0c9d3f1040c835cee8fba"
-    },
-    "crayon": {
-      "Package": "crayon",
-      "Version": "1.5.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "grDevices",
-        "methods",
-        "utils"
-      ],
-      "Hash": "859d96e65ef198fd43e82b9628d593ef"
     },
     "crosstalk": {
       "Package": "crosstalk",
@@ -284,6 +255,17 @@
         "R"
       ],
       "Hash": "d91263322a58af798f6cf3b13fd56dde"
+    },
+    "data.table": {
+      "Package": "data.table",
+      "Version": "1.16.4",
+      "Source": "Repository",
+      "Repository": "P3M",
+      "Requirements": [
+        "R",
+        "methods"
+      ],
+      "Hash": "38bbf05fc2503143db4c734a7e5cab66"
     },
     "digest": {
       "Package": "digest",
@@ -387,7 +369,7 @@
       "Package": "fs",
       "Version": "1.6.4",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "P3M",
       "Requirements": [
         "R",
         "methods"
@@ -404,6 +386,34 @@
         "methods"
       ],
       "Hash": "15e9634c0fcd294799e9b2e929ed1b86"
+    },
+    "ggmap": {
+      "Package": "ggmap",
+      "Version": "4.0.0",
+      "Source": "Repository",
+      "Repository": "P3M",
+      "Requirements": [
+        "R",
+        "bitops",
+        "cli",
+        "digest",
+        "dplyr",
+        "ggplot2",
+        "glue",
+        "grid",
+        "httr",
+        "jpeg",
+        "magrittr",
+        "plyr",
+        "png",
+        "purrr",
+        "rlang",
+        "scales",
+        "stringr",
+        "tibble",
+        "tidyr"
+      ],
+      "Hash": "031b5eab3c43bf1a7cea0498e4d89233"
     },
     "ggplot2": {
       "Package": "ggplot2",
@@ -512,21 +522,6 @@
       ],
       "Hash": "04291cc45198225444a397606810ac37"
     },
-    "httpuv": {
-      "Package": "httpuv",
-      "Version": "1.6.15",
-      "Source": "Repository",
-      "Repository": "P3M",
-      "Requirements": [
-        "R",
-        "R6",
-        "Rcpp",
-        "later",
-        "promises",
-        "utils"
-      ],
-      "Hash": "d55aa087c47a63ead0f6fc10f8fa1ee0"
-    },
     "httr": {
       "Package": "httr",
       "Version": "1.4.7",
@@ -557,7 +552,7 @@
       "Package": "janitor",
       "Version": "2.2.1",
       "Source": "Repository",
-      "Repository": "P3M",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "dplyr",
@@ -574,6 +569,16 @@
         "tidyselect"
       ],
       "Hash": "64f308bf1fbf5f856cdf4b4c7c0ce51b"
+    },
+    "jpeg": {
+      "Package": "jpeg",
+      "Version": "0.1-10",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "031a0b683d001a7519202f0628fc0358"
     },
     "jquerylib": {
       "Package": "jquerylib",
@@ -626,7 +631,7 @@
       "Package": "later",
       "Version": "1.4.1",
       "Source": "Repository",
-      "Repository": "P3M",
+      "Repository": "RSPM",
       "Requirements": [
         "Rcpp",
         "rlang"
@@ -662,7 +667,7 @@
       "Package": "leaflet",
       "Version": "2.2.2",
       "Source": "Repository",
-      "Repository": "P3M",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "RColorBrewer",
@@ -687,7 +692,7 @@
       "Package": "leaflet.providers",
       "Version": "2.0.0",
       "Source": "Repository",
-      "Repository": "P3M",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "htmltools"
@@ -762,7 +767,7 @@
       "Package": "mime",
       "Version": "0.12",
       "Source": "Repository",
-      "Repository": "P3M",
+      "Repository": "RSPM",
       "Requirements": [
         "tools"
       ],
@@ -844,6 +849,49 @@
       ],
       "Hash": "01f28d4278f15c76cddbea05899c5d6f"
     },
+    "plotly": {
+      "Package": "plotly",
+      "Version": "4.10.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "RColorBrewer",
+        "base64enc",
+        "crosstalk",
+        "data.table",
+        "digest",
+        "dplyr",
+        "ggplot2",
+        "htmltools",
+        "htmlwidgets",
+        "httr",
+        "jsonlite",
+        "lazyeval",
+        "magrittr",
+        "promises",
+        "purrr",
+        "rlang",
+        "scales",
+        "tibble",
+        "tidyr",
+        "tools",
+        "vctrs",
+        "viridisLite"
+      ],
+      "Hash": "a1ac5c03ad5ad12b9d1597e00e23c3dd"
+    },
+    "plyr": {
+      "Package": "plyr",
+      "Version": "1.8.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "Rcpp"
+      ],
+      "Hash": "6b8177fd19982f0020743fadbfdbd933"
+    },
     "png": {
       "Package": "png",
       "Version": "0.1-8",
@@ -858,7 +906,7 @@
       "Package": "promises",
       "Version": "1.3.2",
       "Source": "Repository",
-      "Repository": "P3M",
+      "Repository": "RSPM",
       "Requirements": [
         "R6",
         "Rcpp",
@@ -911,7 +959,7 @@
       "Package": "raster",
       "Version": "3.6-30",
       "Source": "Repository",
-      "Repository": "P3M",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "Rcpp",
@@ -1080,84 +1128,6 @@
       ],
       "Hash": "fe02eec2f6b3ba0e24afe83d5ccfb528"
     },
-    "shiny": {
-      "Package": "shiny",
-      "Version": "1.10.0",
-      "Source": "Repository",
-      "Repository": "P3M",
-      "Requirements": [
-        "R",
-        "R6",
-        "bslib",
-        "cachem",
-        "commonmark",
-        "crayon",
-        "fastmap",
-        "fontawesome",
-        "glue",
-        "grDevices",
-        "htmltools",
-        "httpuv",
-        "jsonlite",
-        "later",
-        "lifecycle",
-        "methods",
-        "mime",
-        "promises",
-        "rlang",
-        "sourcetools",
-        "tools",
-        "utils",
-        "withr",
-        "xtable"
-      ],
-      "Hash": "4b4477baa9a939c5577e5ddb4bf01f28"
-    },
-    "shinyWidgets": {
-      "Package": "shinyWidgets",
-      "Version": "0.8.7",
-      "Source": "Repository",
-      "Repository": "P3M",
-      "Requirements": [
-        "R",
-        "bslib",
-        "grDevices",
-        "htmltools",
-        "jsonlite",
-        "rlang",
-        "sass",
-        "shiny"
-      ],
-      "Hash": "fd8239886f70daa85c36596214958451"
-    },
-    "shinycssloaders": {
-      "Package": "shinycssloaders",
-      "Version": "1.1.0",
-      "Source": "Repository",
-      "Repository": "P3M",
-      "Requirements": [
-        "R",
-        "digest",
-        "glue",
-        "grDevices",
-        "htmltools",
-        "shiny"
-      ],
-      "Hash": "2b45a467a30d6a88a1892a738c0900cf"
-    },
-    "shinyjs": {
-      "Package": "shinyjs",
-      "Version": "2.1.0",
-      "Source": "Repository",
-      "Repository": "P3M",
-      "Requirements": [
-        "R",
-        "digest",
-        "jsonlite",
-        "shiny"
-      ],
-      "Hash": "802e4786b353a4bb27116957558548d5"
-    },
     "snakecase": {
       "Package": "snakecase",
       "Version": "0.11.1",
@@ -1170,21 +1140,11 @@
       ],
       "Hash": "58767e44739b76965332e8a4fe3f91f1"
     },
-    "sourcetools": {
-      "Package": "sourcetools",
-      "Version": "0.1.7-1",
-      "Source": "Repository",
-      "Repository": "P3M",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "5f5a7629f956619d519205ec475fe647"
-    },
     "sp": {
       "Package": "sp",
       "Version": "2.1-4",
       "Source": "Repository",
-      "Repository": "P3M",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "grDevices",
@@ -1238,7 +1198,7 @@
       "Package": "terra",
       "Version": "1.8-5",
       "Source": "Repository",
-      "Repository": "P3M",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "Rcpp",
@@ -1441,18 +1401,6 @@
         "rlang"
       ],
       "Hash": "1d0336142f4cd25d8d23cd3ba7a8fb61"
-    },
-    "xtable": {
-      "Package": "xtable",
-      "Version": "1.8-4",
-      "Source": "Repository",
-      "Repository": "P3M",
-      "Requirements": [
-        "R",
-        "stats",
-        "utils"
-      ],
-      "Hash": "b8acdf8af494d9ec19ccb2481a9b11c2"
     },
     "yaml": {
       "Package": "yaml",
