@@ -11,7 +11,12 @@ box::use(
   leaflet[...],
   sf[...],
   plotly[...],
-  ggmap[...]
+  ggmap[...],
+  scales[...],
+  hrbrthemes[...],
+  lubridate[...],
+  htmlwidgets[...],
+  webshot[...]
 
 )
 
@@ -247,67 +252,74 @@ coords <- st_coordinates(bigfoot_points)
 bigfoot_points$lon <- coords[, 1]  # longitude
 bigfoot_points$lat <- coords[, 2]  # latitude
 
-# Create a plotly map to show the points
-plot_ly(data = bigfoot_points, 
-        x = ~lon, 
-        y = ~lat, 
-        type = 'scattermapbox', 
-        mode = 'markers') %>%
-  layout(
-    mapbox = list(
-      style = "open-street-map",  # Use your preferred map style
-      center = list(lon = mean(points_df$lon), lat = mean(points_df$lat)),
-      zoom = 10
-    )
-  )
 
-# geo styling
-g <- list(
-  scope = 'usa',
-  projection = list(type = 'albers usa'),
-  showland = TRUE,
-  landcolor = toRGB("gray95"),
-  subunitcolor = toRGB("gray85"),
-  countrycolor = toRGB("gray85"),
-  countrywidth = 0.5,
-  subunitwidth = 0.5,
-  style = "satellite",  # You can use other styles like "carto-positron" or "satellite"
-  center = list(lon = -120.7401, lat = 47.7511),  # Coordinates for Washington State
-  zoom = 7  # Adjust zoom level to fit Washington State (7-8 is a good range)
-)
-
-fig <- plot_geo(bigfoot_points, lat = ~lat, lon = ~lon)
-
-
-fig %>% add_markers(
-  text = ~paste(observed)
+popup <- paste0(
+  "<p id='popup-title'><strong>", bigfoot_points$summary, "</strong></p>",
+  "<div id='first-popbox'>",
+  "<strong>Report Date: </strong>", format(as.Date(bigfoot_points$report_date2), "%B %d, %Y"),
+  "<br><strong>Report Classification: </strong>", bigfoot_points$classification,
+  "<br><strong>Length of Report: </strong>", bigfoot_points$report_length, " characters",
+  "<br><strong>Report Season: </strong>", bigfoot_points$season,
+  "<br><br><strong>County: </strong>", bigfoot_points$county,
+  "<br><strong>Nearest Town: </strong>", bigfoot_points$nearest_town,
+  "<br><strong>Environment: </strong>", bigfoot_points$environment,
+  "</div>",
+  "<div id='second-popbox'>",
+  "<p id='popbox-report-text'><strong>Report text</strong></p><br>",
+  substr(bigfoot_points$observed, 1, 400),"... ",
+  "<br><a href='",bigfoot_points$url, "'>click to see full report</a></div>"
 ) %>%
-  layout(
-    plot_mapbox(), 
-    mapbox = list(style = "light"),
-    updatemenus = list(
-      list(y = 0.8)
-    )
-  )
-fig <- fig %>% add_markers(
-    text = ~paste(airport, city, state, paste("Arrivals:", cnt), sep = "<br />"),
-    color = ~cnt, symbol = I("square"), size = I(8), hoverinfo = "text"
-  )
-fig <- fig %>% colorbar(title = "Incoming flights<br />February 2011")
-fig <- fig %>% layout(
-    title = 'Most trafficked US airports<br />(Hover for airport)', geo = g
-  )
+  lapply(htmltools::HTML)
 
-fig
+
+df <- bigfoot_points %>%
+  count(year_as_date) |>
+      arrange(year_as_date) |>
+      mutate(cumulative = cumsum(n))
+
+df %>%
+ggplot(aes(x=year_as_date,y=cumulative)) +
+                  geom_line(color="#05382c", size=2, alpha=0.9, linetype=1) +
+                  scale_x_date(date_breaks = "20 year", 
+                  labels=date_format("%b-%Y"),
+                  limits = as.Date(c('1920-01-01','2025-04-01'))) +
+                  ylim(0,500) +
+                  # theme_minimal(base_size = 30) +
+                  guides(colour = "none", shape = "none") +
+  labs(x="Year", y="Cumulative Count",
+       title="Cumulative Count of Bigfoot Sightings in WA",
+       subtitle="A really rough estimate..",
+       caption="Note: the year is the year a person reported seeing bigfoot") + 
+  theme_ipsum(grid="Y")
+
 
 bigfoot_points %>%
+  count(year_as_date) %>%
+  mutate(percent_of_total = round(n / nrow(bigfoot_points) * 100, digits = 1)) %>%
+  rename(sightings_count = n) %>%
 
 
-    # this filters the date range based on what the user has set as the date
-    # range with the slider
-    dplyr::filter(year_as_date %in% seq.Date(from = input$startdate[1],
-                                              to = input$startdate[2],
-                                              by = 1)) %>%
+  # This pipes the filtered dataset into a ggplot
+  ggplot() +
+  
+  ggplot_standard_theme +
+
+  # create bar chart
+  geom_col(aes(x = year_as_date, y = sightings_count), fill = "#0D6ABF") +
+
+  # define plot aesthetics unique to this plot
+
+  theme(axis.text.x = element_text(size = 12, angle = 45, hjust = 1),
+        axis.text.y = element_text(size = 15)) +
+
+  #define plot labels
+  labs( title = "TOTAL ANNUAL SIGHTINGS COUNT",
+        y = element_blank(),
+        x = "\nYear of Sighting")
+
+
+  bigfoot_points %>%
+
 
     count(year_as_date) %>%
     mutate(percent_of_total = round(n / nrow(bigfoot_points) * 100, digits = 1)) %>%
@@ -316,12 +328,11 @@ bigfoot_points %>%
 
     # This pipes the filtered dataset into a ggplot
     ggplot() +
+    
+    ggplot_standard_theme +
 
     # create bar chart
     geom_col(aes(x = year_as_date, y = sightings_count), fill = "#0D6ABF") +
-
-
-    ggplot_standard_theme +
 
     # define plot aesthetics unique to this plot
 
@@ -333,37 +344,86 @@ bigfoot_points %>%
           y = element_blank(),
           x = "\nYear of Sighting")
 
-theme_map <- function(...) {
-  theme_minimal() +
-    theme(
-      text = element_text(family = "Lato", color = "#22211d"),
-      axis.line = element_blank(),
-      axis.ticks = element_blank(),
-      axis.title.x = element_blank(),
-      axis.title.y = element_blank(),
-      axis.text = element_blank(),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
-      plot.background = element_rect(fill = "lightblue", color = NA),
-      panel.background = element_rect(fill = "lightblue", color = NA),
-      plot.margin = margin(0,0,0,0,"cm"), # <- set to negative to remove white border
-      panel.border = element_blank(),
-      ...
+
+# Assuming wa_counties is an sf object
+st_write(wa_counties, "wa_counties.geojson", driver = "GeoJSON")
+# Assuming 'bigfoot_points' is a spatial points dataframe
+st_write(bigfoot_points, "bigfoot_points.geojson", driver = "GeoJSON")
+
+
+final<- leaflet()  %>%
+
+    # This adds a counties outline
+    addPolylines(data = wa_counties,
+                 color = "#595959") %>%
+
+    # this is the style guide recommended grey
+    # addProviderTiles("Esri.WorldImagery") %>%
+    addTiles() %>%
+
+    # this was the fun trees and stuff version
+   # addProviderTiles(providers$Stadia.StamenTerrain)   %>%
+    addMarkers( data = bigfoot_points,
+                label = ~summary,
+                popup = popup,
+                icon = BigFootIcon,
+                group = "default_feets"
     )
-}
 
-base <- ggplot(wa_counties) +
-  geom_sf(
-    color = "white",
-    fill = "#dfdfdf",
-    size = 0.2) +
-  theme_map()
+final 
 
-base +
-  geom_sf(
-    data=bigfoot_points,aes(color=factor(report_no))
-  ) +
-    theme(legend.position="none")
+base
+## save html to png
+saveWidget(base, "base.html", selfcontained = FALSE)
+webshot("base.html", file = "Rplot.png",
+        cliprect = "viewport")
 
-map <- get_googlemap("Washington, USA")
+final
 
+lat <- 47.7511  # Latitude for Washington State
+lon <- -120.7401  # Longitude for Washington State
+
+# Create the map
+base <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
+  addTiles() %>%  # Add default OpenStreetMap tiles
+  setView(lng = lon, lat = lat, zoom = 7)
+
+df <- bigfoot_points %>% filter(year_as_date < '1970-01-01')
+map1 <- base %>%
+    addMarkers( data = df,
+                label = ~summary,
+                popup = popup,
+                icon = BigFootIcon,
+                group = "default_feets"
+    )
+## save html to png
+saveWidget(map1, "base.html", selfcontained = FALSE)
+webshot("base.html", file = "map1.png",
+        cliprect = "viewport")
+
+df <- bigfoot_points %>% filter(year_as_date < '1990-01-01')
+map2 <- base %>%
+    addMarkers( data = df,
+                label = ~summary,
+                popup = popup,
+                icon = BigFootIcon,
+                group = "default_feets"
+    )
+## save html to png
+saveWidget(map2, "base.html", selfcontained = FALSE)
+webshot("base.html", file = "map2.png",
+        cliprect = "viewport")
+
+df <- bigfoot_points %>% filter(year_as_date < '2025-01-01')
+map3 <- base %>%
+    addMarkers( data = df,
+                label = ~summary,
+                popup = popup,
+                icon = BigFootIcon,
+                group = "default_feets"
+    )
+## save html to png
+saveWidget(map3, "base.html", selfcontained = FALSE)
+webshot("base.html", file = "map3.png",
+        cliprect = "viewport")
+        

@@ -92,6 +92,7 @@ body {
     background-size: cover;
     transform: translateZ(-2px) scale(3.2);
     /* filter: blur(2px); */
+    overflow: hidden;
 }
 
 .section1::after {
@@ -159,4 +160,47 @@ body {
   
     #cr-filter {
     margin-right: 100px;
+  }
+
+  #popup-title {
+
+    text-align:center;
+    background-color:#144361;
+    color:white;
+    border-color:black;
+    border-radius:15px;
+    border-width:5px;
+    padding:7.5px;
+    border-style:solid;
+  
+  
+  }
+  
+  
+  #first-popbox {
+  
+    background-color:#6298BC;
+    border-radius:15px;
+    padding:7.5px;
+    margin-top:0;
+  
+  }
+  
+  #second-popbox {
+  
+    background-color:#D9EAF7;
+    border-radius:15px;
+    padding:7.5px;
+    margin-top:10px;
+  
+  }
+  
+  #popbox-report-text{
+  
+    text-align:center;
+    display:inline;
+    left:50%;
+    right:50%;
+    width:100%;
+  
   }

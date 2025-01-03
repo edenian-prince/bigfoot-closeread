@@ -52,7 +52,7 @@ load("data/wa_counties2.rda")
 
 Before the 19th century, when stories about the mysterious “ape man” began circulating in the American West, most Native American tribes had their own legends surrounding the enigmatic creature. Sasquatch, most commonly spotted in the Pacific Northwest, is usually described as a bipedal ape-like creature, significantly larger than the average man, and completely covered in dark brown or reddish hair. @cr-fire
 
-Although the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them." - [Oregon Wild](https://oregonwild.org/resource/sasquatch/) @cr-fire
+Although the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them." @cr-fire
 
 <!-- Perhaps you'd like to explore for yourself the places in Washington State where they've been spotted? @cr-magnify
 
@@ -287,7 +287,6 @@ Here's the full shiny app!
 ```
 
 ## Links
-
 
 [Data sources and site details](data.qmd)
 
