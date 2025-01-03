@@ -14,6 +14,48 @@
     "text": "Links\nData sources and site details\nAuthors"
   },
   {
+    "objectID": "data.html",
+    "href": "data.html",
+    "title": "Data Sources and Details",
+    "section": "",
+    "text": "Data source, scraping, and processing details can be found here in Russell’s GitHub repo\ntl;dr - The data was scraped from a bigfoot sightings database using a python script, cleaned in R, and then Russell made a sweet Shiny app displaying the results. We then adapted the outputs for this closeread doc."
+  },
+  {
+    "objectID": "data.html#where-we-got-it",
+    "href": "data.html#where-we-got-it",
+    "title": "Data Sources and Details",
+    "section": "",
+    "text": "Data source, scraping, and processing details can be found here in Russell’s GitHub repo\ntl;dr - The data was scraped from a bigfoot sightings database using a python script, cleaned in R, and then Russell made a sweet Shiny app displaying the results. We then adapted the outputs for this closeread doc."
+  },
+  {
+    "objectID": "data.html#how-we-made-it",
+    "href": "data.html#how-we-made-it",
+    "title": "Data Sources and Details",
+    "section": "How we made it",
+    "text": "How we made it\nThe closeread page (plus Quarto in general) was both easy and challenging at times. Here are some of the challenges + lessons learned:\n\nThe parallax effect was a pain to figure out but this video helped a ton\n\nI had to adapt the html/css in that video to work with Quarto by making a custom html called before.html and putting it in the header like this:\n\n\n---\nformat:\n    closeread-html:\n        include-in-header: assets/before.html\n---\n\nI used the amazing artwork by Tati.Dsgn to get the parallax background\n\nI had to save that art and unwrap all the layers using Figma in order to get the dark treeline has a separate image that ‘covers’ the background as the user scrolls. Figma is a great tool for editing images like that.\n\nThe actual closeread stuff was straightforward until the ojs stuff :(\n\nI wanted to make a map that adds markers when the user scrolls down, like this in the closeread docs\nI spent hours with chatGPT and reading that document…\nI had an issue when it came to combining the ojs leaflet map I created alongside the tweaked html for the parallax effect - the two did not mix well at all. Let me explain:\n\n\nThe closeread docs for ojs are great. They use crProgressBlock as a variable to indicate how far along the page a user has scrolled.\nThey then take that variable and apply some basic math to it. For example, with the user has scroll 0%, they set the variable angle1 to be -180. And angle1 will change as the user scrolls down until it gets to 0. Like this:\nangleScale1 = d3.scaleLinear()\n  .domain([0, 1])\n  .range([-180, 0])\n  .clamp(true)\n    \nangle1 = angleScale1(crProgressBlock)\nI wanted to do this for my ojs leaflet map, when a user scrolls, the markers (bigfoot icons and info) get added to the map.\nI can add markers to the map like this, where it takes in the lat and lon of the point and plots it:\n\nL.marker([lat, lon], { icon: BigFootIcon })\n    .addTo(map);\n\n\n\n\n\n\nBut, I want the points to be added based on the year variable they have in the dataset. So when a user scrolls, the year increases and the data points are filtered to add more to the map.\nI tried it like in the closeread docs by using crProgressBlock but this WILL NOT WORK in my case :\n\nbfScale1 = d3.scaleLinear()\n  .domain([0, 1])\n  .range([1920, 2025])\n  .clamp(true)\n    \nbf1 = bfScale1(crProgressBlock)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIn my parallax set up, I have this in my scss file:\nhtml {\n    overflow: hidden;\n}\nIt’s necessary for the scroll effect, but it also means that the scroll counter gets messed up and will no longer count a user’s progress.\nSo I used a different variable to track a user’s progress instead, the crTriggerIndex:\n\nbfScale2 = d3.scaleLinear()\n  .domain([7, 12])\n  .range([1930, 2020])\n  .clamp(true)\n    \nbf2 = bfScale2(crTriggerIndex)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNow, as the user scrolls, the TriggerIndex counts progress to where they are at on the page by scrolly section.\nAnd it looks like this to where I can use my counting variable to dynamically filter the dataset when the user scrolls (and add the filtered dataset points to the map)\n\nfp = bf_points.features.filter(feature =&gt; {\n  const year = parseInt(feature.properties.year); // Convert year to integer\n  return year &lt;= bf2;  // Only keep points with year less than or equal to bf2\n});\n\n// Add markers for each filtered point\nfp.forEach(feature =&gt; {\n  const lat = feature.geometry.coordinates[1]; // Latitude from GeoJSON\n  const lon = feature.geometry.coordinates[0]; // Longitude from GeoJSON\n\n  L.marker([lat, lon], { icon: BigFootIcon })\n    .bindPopup(`\n        &lt;p&gt;&lt;strong&gt;${feature.properties.summary}&lt;/strong&gt;&lt;/p&gt;\n        &lt;p&gt;&lt;strong&gt;Report Date: &lt;/strong&gt;${new Date(feature.properties.report_date).toLocaleDateString()}&lt;/p&gt;\n        &lt;p&gt;&lt;strong&gt;Classification: &lt;/strong&gt;${feature.properties.classification}&lt;/p&gt;\n        &lt;p&gt;&lt;strong&gt;Environment: &lt;/strong&gt;${feature.properties.environment}&lt;/p&gt;\n        &lt;a href=\"${feature.properties.url}\" target=\"_blank\"&gt;Read full report&lt;/a&gt;\n    `)\n    .addTo(map);\n});\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnd this is all very hacked together. I was pasting random code from chatGPT and other leaflet maps I found on the web to cobble this together. It’s rough, but feels good to have it somewhat work."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Who we are",
+    "section": "",
+    "text": "Epidemiologist, Data Engineer, Nerd\nQuarto has made me enjoy writing documentation and that just feels wrong.\n\n\n\nAside from data stuff, I’m into reading (I love horror, history, politics, and anything else that is good), movies, hiking, language learning, and soccer. I have a mini microscope that I take with me on hikes so I can see the tiny world within our world. I’m from Detroit, MI (go LIONS!!!!) and am living in Portland, OR.\nHere’s my github profile."
+  },
+  {
+    "objectID": "about.html#frank-aragona",
+    "href": "about.html#frank-aragona",
+    "title": "Who we are",
+    "section": "",
+    "text": "Epidemiologist, Data Engineer, Nerd\nQuarto has made me enjoy writing documentation and that just feels wrong.\n\n\n\nAside from data stuff, I’m into reading (I love horror, history, politics, and anything else that is good), movies, hiking, language learning, and soccer. I have a mini microscope that I take with me on hikes so I can see the tiny world within our world. I’m from Detroit, MI (go LIONS!!!!) and am living in Portland, OR.\nHere’s my github profile."
+  },
+  {
+    "objectID": "about.html#russell-shean",
+    "href": "about.html#russell-shean",
+    "title": "Who we are",
+    "section": "Russell Shean",
+    "text": "Russell Shean\njob title or whatever\nshort description if you’d like! just make sure it’s long enough for both our pics to line up\n\n\n\nlonger description if you’d like! same as above. the images don’t line up well :(\nHere’s my github profile."
+  },
+  {
     "objectID": "cr-test.html",
     "href": "cr-test.html",
     "title": "OJS Variables",
