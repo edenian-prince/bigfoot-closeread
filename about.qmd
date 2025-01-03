@@ -1,0 +1,48 @@
+---
+title: "Who we are"
+subtitle: "Who am I?"
+format:
+    html:
+        theme: [cosmo,assets/side.scss]
+                
+---
+
+
+## [Frank Aragona](https://github.com/edenian-prince)
+
+**Epidemiologist, Data Engineer, Nerd**
+
+Quarto has made me enjoy writing documentation and that just feels wrong.
+
+<table>
+<tr><td valign="top">
+
+Aside from data stuff, I'm into reading (I love horror, history, politics, and anything else that is good), movies, hiking, language learning, and soccer. I have a mini microscope that I take with me on hikes so I can see the tiny world within our world.
+I'm from Detroit, MI (go LIONS!!!!) and am living in Portland, OR.
+
+Here's my [github profile](https://github.com/edenian-prince).
+
+</td><td valign="top">
+[![](images/me.jpg){style="border: 5px solid black; padding: 5px;" width=1000}](https://nw-page.github.io/lineage_classifications/)
+</td>
+</tr>
+</table>
+
+## [Russell Shean](https://github.com/Russell-Shean)
+
+**job title or whatever**
+
+short description if you'd like! just make sure it's long enough for both our pics to line up
+
+<table>
+<tr><td valign="top">
+
+longer description if you'd like! same as above. the images don't line up well :(
+
+Here's my [github profile](https://github.com/Russell-Shean).
+
+</td><td valign="top">
+[![](images/russell.jpg){style="border: 5px solid black; padding: 5px;" width=250}](https://github.com/Russell-Shean)
+</td>
+</tr>
+</table>
