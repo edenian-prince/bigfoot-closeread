@@ -8,7 +8,7 @@ name: Render and Publish
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     env:
       RENV_PATHS_ROOT: ~/.cache/R/renv
@@ -27,11 +27,11 @@ jobs:
         with:
           version: '1.6.37'
         
-      - name: Prep CURL install
-        run: sudo apt-get update
+      # - name: Prep CURL install
+      #   run: sudo apt-get update
 
-      - name: Install CURL Headers
-        run: sudo apt-get install libcurl4-openssl-dev
+      # - name: Install CURL Headers
+      #   run: sudo apt-get install libcurl4-openssl-dev
 
       # - name: Setup Renv
       #   uses: r-lib/actions/setup-renv@v2
@@ -49,7 +49,7 @@ jobs:
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
-          renv::install('reticulate')
+          # renv::install('reticulate')
 
       - name: Publish to GitHub Pages (and render)
         uses: quarto-dev/quarto-actions/publish@v2.0.2
