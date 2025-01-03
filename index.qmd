@@ -231,19 +231,22 @@ final<- leaflet()  %>%
                 group = "default_feets"
     )
 
+lat <- 47.7511  # Latitude for Washington State
+lon <- -120.7401  # Longitude for Washington State
+
+# Create the map
 base <- leaflet() %>%
-    addPolylines(
-        data = wa_counties,
-        color = "#59595900"
-    ) %>%
-        addTiles()
+  addTiles() %>%  # Add default OpenStreetMap tiles
+  setView(lng = lon, lat = lat, zoom = 6.4)
 
 base
 ```
+
+
 :::
 
 
-Reports up to 1979 @cr-map70s
+Reports before 1970 @cr-map70s
 
 :::{#cr-map70s .scale-to-fill}
 
@@ -252,7 +255,7 @@ Reports up to 1979 @cr-map70s
 #| out-height: 550px
 #| message: false
 #| warning: false
-df <- bigfoot_points %>% filter(year_as_date < '1980-01-01')
+df <- bigfoot_points %>% filter(year_as_date < '1970-01-01')
 base %>%
     addMarkers( data = df,
                 label = ~summary,
@@ -301,6 +304,7 @@ base %>%
                 group = "default_feets"
     )
 ```
+
 :::
 
 <!-- ::: {#cr-magnify}
@@ -332,3 +336,40 @@ Here's the full shiny app!
 ```{=html}
 <iframe id="bigfoots-map" width="1400" height="800" src="https://russellshean.shinyapps.io/bigfoot-map-shiny" title="bigfoot-shiny-app"></iframe>
 ```
+
+
+<!-- 
+```{ojs}
+// Fetch the GeoJSON data (replace with your actual paths)
+wa_counties = FileAttachment("data/wa_counties.geojson").json()
+bigfoot_points = FileAttachment("data/bigfoot_prints.geojson").json()
+
+// Create a custom icon for the markers (replace with your custom icon)
+BigFootIcon = icon({ 
+  iconUrl: "https://images.fineartamerica.com/images/artworkimages/medium/3/gluten-free-cute-bigfoot-cartoon-noirty-designs-transparent.png",  // Replace with the URL to your custom icon
+  iconSize: [32, 32],  // Adjust the size as necessary
+});
+
+// Create the map
+viewof map = map()
+  .setView([47.7511, -120.7401], 7)  // Center the map on Washington State
+//   .addLayer(tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'))  // Add base OpenStreetMap tiles
+
+  // Add county outlines as polylines
+  .addLayer(geoJSON(wa_counties).setStyle({color: '#595959'}))  // Set color for counties outline
+
+  // Add Bigfoot markers (points) with popups and custom icons
+  .addLayer(
+    geoJSON(bigfoot_points, {
+      pointToLayer: function (feature, latlng) {
+        return marker(latlng, {icon: BigFootIcon});
+      },
+      onEachFeature: function (feature, layer) {
+        // Attach the popup and label
+        layer.bindPopup(feature.properties.popup);
+        layer.bindTooltip(feature.properties.summary);
+      }
+    })
+  );
+
+``` -->
