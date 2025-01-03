@@ -92,6 +92,7 @@ body {
     background-size: cover;
     transform: translateZ(-2px) scale(3.2);
     /* filter: blur(2px); */
+    overflow: hidden;
 }
 
 .section1::after {

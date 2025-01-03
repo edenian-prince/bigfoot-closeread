@@ -11,9 +11,9 @@ website:
     background: primary
     left: 
       - text: about
-        # file: gh/index.qmd
+        file: about.qmd
       - text: data
-        # file: aws/aws_index.qmd
+        file: data.qmd
     right:
         - icon: github
           href: https://github.com/edenian-prince/bigfoot-closeread
