@@ -29,7 +29,7 @@ format:
 ```
 
 2. I used the [amazing artwork by Tati.Dsgn](https://www.vecteezy.com/vector-art/5565275-silhouette-landscape-with-fog-forest-pine-trees-purple-mountains-illustration-of-view-mist-and-sunset-good-for-wallpaper-background-banner-cover-poster) to get the parallax background
-    -    I had to save that art and unwrap all the layers using Figma in order to get the dark treeline has a separate image that 'covers' the background as the user scrolls. Figma is a great tool for editing images like that.
+    -    I had to save that art and unwrap all the layers using Figma in order to get the dark treeline as a separate image that 'covers' the background as the user scrolls. Figma is a great tool for editing images like that.
 
 3. The actual closeread stuff was straightforward _until_ the ojs stuff :( 
     -    I wanted to make a map that adds markers when the user scrolls down, like this in the [closeread docs](https://closeread.dev/gallery/demos/ojs-variables/)
@@ -39,7 +39,7 @@ format:
 
 The closeread docs for ojs are great. They use `crProgressBlock` as a variable to indicate how far along the page a user has scrolled.
 
-They then take that variable and apply some basic math to it. For example, with the user has scroll 0%, they set the variable `angle1` to be `-180`. And `angle1` will change as the user scrolls down until it gets to `0`. Like this:
+They then take that variable and apply some basic math to it. For example, when the user starts scrolling at 0%, they set the variable `angle1` to be `-180`. And `angle1` will change as the user scrolls down until it gets to angle = `0`. Like this:
 
 ```markdown
 angleScale1 = d3.scaleLinear()
@@ -50,7 +50,7 @@ angleScale1 = d3.scaleLinear()
 angle1 = angleScale1(crProgressBlock)
 ```
 
-I wanted to do this for my ojs leaflet map, when a user scrolls, the markers (bigfoot icons and info) get added to the map.
+I wanted to do this for my ojs leaflet map; when a user scrolls, the markers (bigfoot icons and info) get added to the map.
 
 I can add markers to the map like this, where it takes in the lat and lon of the point and plots it:
 
@@ -83,7 +83,7 @@ html {
     overflow: hidden;
 }
 ```
-It's necessary for the scroll effect, but it also means that the scroll counter gets messed up and will no longer count a user's progress.
+It's necessary for the scroll effect, but it also means that the scroll counter gets messed up and will no longer count a user's scroll progress on the page.
 
 So I used a different variable to track a user's progress instead, the `crTriggerIndex`:
 
@@ -91,14 +91,36 @@ So I used a different variable to track a user's progress instead, the `crTrigge
 //| echo: true
 //| eval: false
 bfScale2 = d3.scaleLinear()
-  .domain([7, 12])
+  .domain([1, 5])
   .range([1930, 2020])
   .clamp(true)
     
 bf2 = bfScale2(crTriggerIndex)
 ```
 
-Now, as the user scrolls, the TriggerIndex counts progress to where they are at on the page _by scrolly section_.
+Now, as the user scrolls, the TriggerIndex counts progress to where they are at on the page _according to the scrolly trigger_. So like, if I have a cr-section along with 5 text points in my sidebar, it will divide the crTriggerIndex into 5 numbers, The 1st being the first scroll trigger, and increase my variable based on the proceeding triggers, like this:
+
+```yaml
+
+::::{.cr-section}
+
+trigger 1 @cr-map # bf2 = 1930
+
+trigger 2 @cr-map # bf2 = 1960
+
+trigger 3 @cr-map # bf2 = 1980
+
+trigger 4 @cr-map # bf2 = 2000
+
+trigger 5 @cr-map # bf2 = 2020
+
+:::{#cr-map}
+sticky section here with my map
+:::
+
+::::
+
+```
 
 And it looks like this to where I can use my counting variable to dynamically filter the dataset when the user scrolls (and add the filtered dataset points to the map)
 
@@ -129,5 +151,24 @@ fp.forEach(feature => {
 ```
 
 
-And this is all very hacked together. I was pasting random code from chatGPT and other leaflet maps I found on the web to cobble this together. It's rough, but feels good to have it somewhat work.
+## General Advice
 
+This is all very hacked together. I was pasting random code from chatGPT and other leaflet maps I found on the web to cobble this together. It's rough, but feels good to have it somewhat work.
+
+If you want to use and OJS cell like this, I cannot recommend adding this to your testing document enough. Put this outside of a cr-section so that you can see all the attributes of your scrolling variables. It will let you see how your custom variables get derived based on where the user is on the page:
+
+````yaml
+:::{.counter style="position: fixed; top: 10px; right: 10px; background-color: skyblue; border-radius: 5px; padding: 18px 18px 0 18px; line-height: .8em;"}
+```{ojs}
+md`Active sticky: ${crActiveSticky}`
+md`Active trigger: ${crTriggerIndex}`
+md`Trigger progress: ${(crTriggerProgress * 100).toFixed(1)}%`
+md`Scroll direction: ${crDirection}`
+md`Progress Block progress: ${(crProgressBlock * 100).toFixed(1)}%`
+md`-----`
+md`(derived) derived var1: ${bf1.toFixed(1)}°`
+md`(derived) bf2: ${bf2.toFixed(1)}`
+```
+:::
+````
+If all else fails, post a discussion in the closeread github site and feel free to tag me. I'd be happy to help and/or learn more about this stuff!
