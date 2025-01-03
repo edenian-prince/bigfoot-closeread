@@ -204,3 +204,26 @@ body {
     width:100%;
   
   }
+
+.offlinks {
+  // for links
+ /* unvisited link */
+ a:link {
+  color: rgb(7, 6, 7);
+}
+
+/* visited link */
+a:visited {
+  color: rgb(4, 3, 14);
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+/* selected link */
+a:active {
+  color: rgb(4, 4, 17);
+} 
+}

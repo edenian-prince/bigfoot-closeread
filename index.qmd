@@ -288,7 +288,8 @@ Here's the full shiny app!
 
 ## Links
 
-
+:::{.offlinks}
 [Data sources and site details](data.qmd)
 
 [Authors](about.qmd)
+:::
