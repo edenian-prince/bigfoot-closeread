@@ -10,10 +10,11 @@ website:
   navbar: 
     background: primary
     left: 
-      - text: about
-        file: about.qmd
       - text: data
         file: data.qmd
+      - text: about
+        file: about.qmd
+      
     right:
         - icon: github
           href: https://github.com/edenian-prince/bigfoot-closeread
