@@ -39,19 +39,16 @@ body {
 
 }
 
-
 .text {
-    top: 30%;
-    left: 1000px;
-    position: absolute;
-    font-family: "Londrina Sketch", sans-serif;
-    font-size: 15vw;
-    color: $secondary;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.3),
-    5px 5px 70px rgba(255,255,255,0.5);
-    transform: scale(1,1.1) translate(-50%,10%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1, 1.1); /* Center the text */
+  font-family: "Londrina Sketch", sans-serif;
+  font-size: 15vw; /* Adjust size relative to viewport width */
+  color: $secondary; /* Assuming $secondary is defined somewhere in your SCSS */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), 5px 5px 70px rgba(255, 255, 255, 0.5);
 }
-
 
 // .top-text {
 //     font-weight: 500;
@@ -226,4 +223,23 @@ a:hover {
 a:active {
   color: rgb(4, 4, 17);
 } 
+}
+
+// unbelievably difficult to get rid of the console output from ojs. doing it manually here with display none
+.observablehq .observablehq--inspect {
+	--code-fallback: Consolas, monaco, monospace;
+	font-family: var(--bs-font-monospace, var(--code-fallback));
+	font-size: 0.8em;
+	display: none;
+}
+
+
+.shinycontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+  
 }

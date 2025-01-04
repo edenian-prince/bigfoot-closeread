@@ -1,16 +1,18 @@
 ---
-title: "OJS Variables"
-image: "globe.png"
-subtitle: "Smoothly transition interactive OJS graphics."
 format:
-  closeread-html:
-    code-tools: true
-    cr-style:
-      narrative-background-color-overlay: "#111111dd"
-      narrative-text-color-overlay: white
-      narrative-background-color-sidebar: transparent
-      section-background-color: transparent
+    closeread-html:
+        include-in-header: assets/before.html
+        theme: [cosmo, assets/styles.scss]
+        smooth-scroll: true
+        code-fold: true
+        cr-section:
+                layout: sidebar-left
+        cr-style:
+                section-background-color: "#0b0d15"
+                narrative-text-color-sidebar: "#fdfdfd"
+                
 ---
+
 ```{r}
 #| output: false
 #| message: false
@@ -45,11 +47,12 @@ load("data/wa_counties2.rda")
 ```
 
 :::: cr-section
+
 "Few creatures have more speculation and anecdotal evidence surrounding them than Sasquatch does... @cr-fire
 
 Before the 19th century, when stories about the mysterious “ape man” began circulating in the American West, most Native American tribes had their own legends surrounding the enigmatic creature. Sasquatch, most commonly spotted in the Pacific Northwest, is usually described as a bipedal ape-like creature, significantly larger than the average man, and completely covered in dark brown or reddish hair. @cr-fire
 
-Although the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them." @cr-fire
+Although the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them." - [Oregon Wild](https://oregonwild.org/resource/sasquatch/) @cr-fire
 
 <!-- Perhaps you'd like to explore for yourself the places in Washington State where they've been spotted? @cr-magnify
 
@@ -170,24 +173,27 @@ plot(f_date='2025-01-01') +
 ```
 :::
 
-Where are people seeing bigfoot? We have some spatial data to help us explore that question that we combined with our timeline. Scroll down to see different time points 
+But where are people seeing bigfoot? We have some spatial data to help us explore that question below.
 
 ::::
 
-::::{.cr-section layout="overlay-center"}
+
+
+::::{.cr-section}
 
 :::{.progress-block}
-This interactive globe visualization starts at an angle of 0 - the International Date Line. @cr-globe1
 
-It ends at an angle of 0: the prime median. @cr-globe1
+This interactive map shows reported sightings in Washington over time. You can zoom in, navigate to an area, and click on the bigfoot icons to learn more about a specific report. @cr-globe1
 
-It ends at an angle of 0: the prime median. @cr-globe1
+There weren't many sightings in the 1940s. @cr-globe1
 
-It ends at an angle of 0: the prime median. @cr-globe1
+The 60s is where things get interesting... @cr-globe1
 
-It ends at an angle of 0: the prime median. @cr-globe1
+Way more sightings in the 1980s. @cr-globe1
 
-It ends at an angle of 0: the prime median. @cr-globe1
+And more in the 2000s @cr-globe1
+
+Here's up until 2020 @cr-globe1
 
 :::
 
@@ -203,18 +209,30 @@ L = {
 
   return L;
 };
+// L = require("leaflet/dist/leaflet.js");
 
 bf_points = FileAttachment("data/bigfoot_points.geojson").json();
+
+container = {
+
+  let x = d3.create("div")
+  
+  x.attr("style", `width:100%;height:${window.outerHeight * 0.65}px`);
+
+  return x.node();
+
+}
 
 ```
 
 ```{ojs}
-bfScale1 = d3.scaleLinear()
-  .domain([0, 1])
-  .range([1920, 2025])
-  .clamp(true)
+// using the crProgressBlock won't work because I have overflow: hidden for the html css for parallax effects :(
+// bfScale1 = d3.scaleLinear()
+//   .domain([0, 1])
+//   .range([1920, 2025])
+//   .clamp(true)
     
-bf1 = bfScale1(crProgressBlock)
+// bf1 = bfScale1(crProgressBlock)
 
 bfScale2 = d3.scaleLinear()
   .domain([7, 12])
@@ -222,15 +240,14 @@ bfScale2 = d3.scaleLinear()
   .clamp(true)
     
 bf2 = bfScale2(crTriggerIndex)
-```
 
+// div = document.createElement("div");
+// // div.style = "height: 400px;width: 600px;";
+// div.style.height = "50vh";  // Full height of the viewport
+// div.style.width = "50%";    // Full width of its parent container
 
-```{ojs}
-div = document.createElement("div");
-div.style = "height: 400px;width: 800px;";
-
-map = L.map(div)
-  .setView([47.6097, -122.3331], 5);
+// map = L.map(div)
+//   .setView([47.6097, -122.3331], 5);
 
 BigFootIcon = L.icon({
   iconUrl: 'https://images.fineartamerica.com/images/artworkimages/medium/3/gluten-free-cute-bigfoot-cartoon-noirty-designs-transparent.png',
@@ -238,66 +255,62 @@ BigFootIcon = L.icon({
   iconAnchor: [22, 24], // Customize the anchor
   popupAnchor: [0, -24] // Customize the popup anchor
 });
+```
 
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+
+```{ojs}
+
+full = {
+  let map = L.map(container);
+
+  
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 })
   .addTo(map);
 
-// Filter the points based on the year (properties.year)
-fp = bf_points.features.filter(feature => {
-  const year = parseInt(feature.properties.year); // Convert year to integer
-  return year <= bf2;  // Only keep points with year less than or equal to bf1
-});
+  // Filter the points based on the year (properties.year)
+  fp = bf_points.features.filter(feature => {
+    const year = parseInt(feature.properties.year); // Convert year to integer
+    return year <= bf2;  // Only keep points with year less than or equal to bf1
+  });
 
-// Add markers for each filtered point
-fp.forEach(feature => {
-  const lat = feature.geometry.coordinates[1]; // Latitude from GeoJSON
-  const lon = feature.geometry.coordinates[0]; // Longitude from GeoJSON
+  // Add markers for each filtered point
+  fp.forEach(feature => {
+    const lat = feature.geometry.coordinates[1]; // Latitude from GeoJSON
+    const lon = feature.geometry.coordinates[0]; // Longitude from GeoJSON
 
-  L.marker([lat, lon], { icon: BigFootIcon })
-    .bindPopup(`
-        <p><strong>${feature.properties.summary}</strong></p>
-        <p><strong>Report Date: </strong>${new Date(feature.properties.report_date).toLocaleDateString()}</p>
-        <p><strong>Classification: </strong>${feature.properties.classification}</p>
-        <p><strong>Environment: </strong>${feature.properties.environment}</p>
-        <a href="${feature.properties.url}" target="_blank">Read full report</a>
-    `)
-    .addTo(map);
-});
+    L.marker([lat, lon], { icon: BigFootIcon })
+      .bindPopup(`
+          <p><strong>${feature.properties.summary}</strong></p>
+          <p><strong>Report Date: </strong>${new Date(feature.properties.report_date).toLocaleDateString()}</p>
+          <p><strong>Classification: </strong>${feature.properties.classification}</p>
+          <p><strong>Environment: </strong>${feature.properties.environment}</p>
+          <a href="${feature.properties.url}" target="_blank">Read full report</a>
+      `)
+      .addTo(map);
+  });
+  map.setView([47.6097, -122.3331], 5);
+  return map;
+}
 
 ```
-
-:::{.counter style="position: fixed; top: 10px; right: 10px; background-color: skyblue; border-radius: 5px; padding: 18px 18px 0 18px; line-height: .8em;"}
-```{ojs}
-md`Active sticky: ${crActiveSticky}`
-md`Active trigger: ${crTriggerIndex}`
-md`Trigger progress: ${(crTriggerProgress * 100).toFixed(1)}%`
-md`Scroll direction: ${crDirection}`
-md`Progress Block progress: ${(crProgressBlock * 100).toFixed(1)}%`
-md`-----`
-md`(derived) Angle 1: ${bf1.toFixed(1)}°`
-md`(derived) bf2: ${bf2.toFixed(1)}`
-```
-:::
-
 
 :::
 ::::
 
-The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
-
-The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
-
-The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
-
-The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
-
-The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
 
 
-```{ojs}
-console.log(bf_points);
-bf_points
+Here's the full shiny app!
+
+```{=html}
+<iframe id="bigfoots-map" width="1400" height="800" src="https://russellshean.shinyapps.io/bigfoot-map-shiny" title="bigfoot-shiny-app"></iframe>
 ```
 
+## Links
+
+:::{.offlinks}
+[Data sources and site details](data.qmd)
+
+[Authors](about.qmd)
+:::

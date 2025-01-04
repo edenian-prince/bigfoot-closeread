@@ -1,0 +1,139 @@
+---
+title: "OJS Variables"
+image: "globe.png"
+subtitle: "Smoothly transition interactive OJS graphics."
+format:
+  closeread-html:
+    code-tools: true
+    cr-style:
+      narrative-background-color-overlay: "#111111dd"
+      narrative-text-color-overlay: white
+      narrative-background-color-sidebar: transparent
+      section-background-color: transparent
+---
+The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
+The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
+The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
+The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
+The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
+
+::::{.cr-section layout="overlay-center"}
+
+:::{.progress-block}
+This interactive globe visualization starts at an angle of 0 - the International Date Line. @cr-globe1
+
+It ends at an angle of 0: the prime median. @cr-globe1
+
+It ends at an angle of 0: the prime median. @cr-globe1
+
+It ends at an angle of 0: the prime median. @cr-globe1
+
+It ends at an angle of 0: the prime median. @cr-globe1
+
+It ends at an angle of 0: the prime median. @cr-globe1
+
+:::
+
+:::{#cr-globe1}
+
+```{ojs}
+// Load Leaflet
+L = {
+  const L = await require("leaflet/dist/leaflet.js");
+  if (!L._style) {
+    const href = await require.resolve("leaflet/dist/leaflet.css");
+    document.head.appendChild(L._style = html`<link href=${href} rel=stylesheet>`);
+  }
+
+  return L;
+};
+
+// Load the BigFoot data
+bf_points = FileAttachment("data/bigfoot_points.geojson").json();
+
+// Set up the map scale
+bfScale2 = d3.scaleLinear()
+  .domain([7, 12])
+  .range([1930, 2020])
+  .clamp(true);
+
+bf2 = bfScale2(crTriggerIndex);
+
+// Create a div element for the map
+div = document.createElement("div");
+div.style.height = "40vh";  // Full height of the viewport
+div.style.width = "40%";    // Full width of its parent container
+
+// Append the div to the DOM (body or a specific container)
+document.body.appendChild(div);
+
+// Initialize the map
+map = L.map(div).setView([47.6097, -122.3331], 5);
+
+// Create a custom icon for BigFoot
+BigFootIcon = L.icon({
+  iconUrl: 'https://images.fineartamerica.com/images/artworkimages/medium/3/gluten-free-cute-bigfoot-cartoon-noirty-designs-transparent.png',
+  iconSize: [38, 38], // Customize size
+  iconAnchor: [22, 24], // Customize the anchor
+  popupAnchor: [0, -24] // Customize the popup anchor
+});
+
+// Add the OpenStreetMap tile layer
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+// Filter the BigFoot points
+fp = bf_points.features.filter(feature => {
+  const year = parseInt(feature.properties.year); // Convert year to integer
+  return year <= bf2;  // Only keep points with year less than or equal to bf1
+});
+
+// Add markers for each filtered point
+fp.forEach(feature => {
+  const lat = feature.geometry.coordinates[1]; // Latitude from GeoJSON
+  const lon = feature.geometry.coordinates[0]; // Longitude from GeoJSON
+
+  L.marker([lat, lon], { icon: BigFootIcon })
+    .bindPopup(`
+      <p><strong>${feature.properties.summary}</strong></p>
+      <p><strong>Report Date: </strong>${new Date(feature.properties.report_date).toLocaleDateString()}</p>
+      <p><strong>Classification: </strong>${feature.properties.classification}</p>
+      <p><strong>Environment: </strong>${feature.properties.environment}</p>
+      <a href="${feature.properties.url}" target="_blank">Read full report</a>
+    `)
+    .addTo(map);
+});
+```
+
+:::{.counter style="position: fixed; top: 10px; right: 10px; background-color: skyblue; border-radius: 5px; padding: 18px 18px 0 18px; line-height: .8em;"}
+```{ojs}
+md`Active sticky: ${crActiveSticky}`
+md`Active trigger: ${crTriggerIndex}`
+md`Trigger progress: ${(crTriggerProgress * 100).toFixed(1)}%`
+md`Scroll direction: ${crDirection}`
+md`Progress Block progress: ${(crProgressBlock * 100).toFixed(1)}%`
+md`-----`
+md`(derived) Angle 1: ${bf1.toFixed(1)}°`
+```
+:::
+
+
+:::
+::::
+
+The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
+
+The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
+
+The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
+
+The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
+
+The cities above wrap the entire globe, so to view them all we'll need to be give the user the ability to spin the globe. We'll map the progress of the user's scroll, stored in a variable called `crProgressBlock`, to a variable called `angle`. The `scale.Linear` function handles the linear mapping of `crProgressBlock` going from 0 to 1 to `angle` going from -180 to 0.
+
+
+```{ojs}
+console.log(bf_points);
+bf_points
+```

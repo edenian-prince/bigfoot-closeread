@@ -197,7 +197,7 @@ Here's up until 2020 @cr-globe1
 
 :::
 
-:::{#cr-globe1}
+:::{#cr-globe1 }
 
 ```{ojs}
 L = {
@@ -209,20 +209,9 @@ L = {
 
   return L;
 };
+// L = require("leaflet/dist/leaflet.js");
 
 bf_points = FileAttachment("data/bigfoot_points.geojson").json();
-
-```
-
-```{ojs}
-// using the crProgressBlock won't work because I have overflow: hidden for the html css for parallax effects :(
-// bfScale1 = d3.scaleLinear()
-//   .domain([0, 1])
-//   .range([1920, 2025])
-//   .clamp(true)
-    
-// bf1 = bfScale1(crProgressBlock)
-
 bfScale2 = d3.scaleLinear()
   .domain([7, 12])
   .range([1930, 2020])
@@ -231,7 +220,20 @@ bfScale2 = d3.scaleLinear()
 bf2 = bfScale2(crTriggerIndex)
 
 div = document.createElement("div");
-div.style = "height: 400px;width: 800px;";
+div.style = "height: 400px;width: 600px;";
+```
+
+```{ojs}
+//| code-fold: false
+// using the crProgressBlock won't work because I have overflow: hidden for the html css for parallax effects :(
+// bfScale1 = d3.scaleLinear()
+//   .domain([0, 1])
+//   .range([1920, 2025])
+//   .clamp(true)
+    
+// bf1 = bfScale1(crProgressBlock)
+
+
 
 map = L.map(div)
   .setView([47.6097, -122.3331], 5);
@@ -242,14 +244,17 @@ BigFootIcon = L.icon({
   iconAnchor: [22, 24], // Customize the anchor
   popupAnchor: [0, -24] // Customize the popup anchor
 });
+
+
+map2 = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+})
+  .addTo(map);
 ```
 
 
 ```{ojs}
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-})
-  .addTo(map);
+//| code-fold: false
 
 // Filter the points based on the year (properties.year)
 fp = bf_points.features.filter(feature => {
@@ -280,11 +285,19 @@ fp.forEach(feature => {
 
 
 
-Here's the full shiny app!
+
+
+<br>
+
+## Here's the full shiny app!
+
+::: {.column-page}
 
 ```{=html}
 <iframe id="bigfoots-map" width="1400" height="800" src="https://russellshean.shinyapps.io/bigfoot-map-shiny" title="bigfoot-shiny-app"></iframe>
 ```
+:::
+
 
 ## Links
 
