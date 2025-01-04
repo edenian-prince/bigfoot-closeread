@@ -105,7 +105,7 @@ plot()
 :::
 
 
-There weren't too many sightings, but things start to change around 1970 @cr-time2
+There weren't too many sightings from 1920-1960, although keep in mind that there is probably some level of reporting bias here. Things start to change around 1970 @cr-time2
 
 :::{#cr-time2}
 
@@ -183,21 +183,21 @@ But where are people seeing bigfoot? We have some spatial data to help us explor
 
 :::{.progress-block}
 
-This interactive map shows reported sightings in Washington over time. You can zoom in, navigate to an area, and click on the bigfoot icons to learn more about a specific report. @cr-globe1
+This interactive map shows reported sightings in Washington over time. You can zoom in, navigate to an area, and click on the bigfoot icons to learn more about a specific report. @cr-map
 
-There weren't many sightings in the 1940s. @cr-globe1
+There weren't many sightings in the 1940s. @cr-map
 
-The 60s is where things get interesting... @cr-globe1
+The 60s is where things get interesting... @cr-map
 
-Way more sightings in the 1980s. @cr-globe1
+Way more sightings in the 1970s - 1980s. @cr-map
 
-And more in the 2000s @cr-globe1
+And more in the 1990s-2000s @cr-map
 
-Here's up until 2020 @cr-globe1
+Here's up until 2020 @cr-map
 
 :::
 
-:::{#cr-globe1 }
+:::{#cr-map }
 
 ```{ojs}
 L = {
@@ -270,7 +270,7 @@ fp.forEach(feature => {
   L.marker([lat, lon], { icon: BigFootIcon })
     .bindPopup(`
         <p><strong>${feature.properties.summary}</strong></p>
-        <p><strong>Report Date: </strong>${new Date(feature.properties.report_date).toLocaleDateString()}</p>
+        <p><strong>Report Date: </strong>${new Date(feature.properties.year_as_date).toLocaleDateString()}</p>
         <p><strong>Classification: </strong>${feature.properties.classification}</p>
         <p><strong>Environment: </strong>${feature.properties.environment}</p>
         <a href="${feature.properties.url}" target="_blank">Read full report</a>
