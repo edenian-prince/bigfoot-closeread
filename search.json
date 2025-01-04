@@ -1,66 +1,17 @@
 [
   {
-    "objectID": "test.html",
-    "href": "test.html",
-    "title": "OJS Variables",
-    "section": "",
-    "text": "The cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0.The cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0.The cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0. The cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0. The cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0. The cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0. The cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0.\n\n\n\n\n\nThis interactive globe visualization starts at an angle of 0 - the International Date Line.\n\n\n\n\nIt ends at an angle of 0: the prime median.\n\n\n\n\nIt ends at an angle of 0: the prime median.\n\n\n\n\nIt ends at an angle of 0: the prime median.\n\n\n\n\nIt ends at an angle of 0: the prime median.\n\n\n\n\nIt ends at an angle of 0: the prime median.\n\n\n\n\n\n\n\n\nL = {\n  const L = await require(\"leaflet/dist/leaflet.js\");\n  if (!L._style) {\n    const href = await require.resolve(\"leaflet/dist/leaflet.css\");\n    document.head.appendChild(L._style = html`&lt;link href=${href} rel=stylesheet&gt;`);\n  }\n\n  return L;\n};\n\n// Load the BigFoot data\nbf_points = FileAttachment(\"data/bigfoot_points.geojson\").json();\n\n// Set up the map scale\nbfScale2 = d3.scaleLinear()\n  .domain([7, 12])\n  .range([1930, 2020])\n  .clamp(true);\n\nbf2 = bfScale2(crTriggerIndex);\n\n// Create a div element for the map\ndiv = document.createElement(\"div\");\ndiv.style.height = \"40vh\";\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndiv.style.width = \"40%\";\n\n\n\n\n\n\n\ndocument.body.appendChild(div);\n\n\n\n\n\n\n\nmap = L.map(div).setView([47.6097, -122.3331], 5);\n\n// Create a custom icon for BigFoot\nBigFootIcon = L.icon({\n  iconUrl: 'https://images.fineartamerica.com/images/artworkimages/medium/3/gluten-free-cute-bigfoot-cartoon-noirty-designs-transparent.png',\n  iconSize: [38, 38], // Customize size\n  iconAnchor: [22, 24], // Customize the anchor\n  popupAnchor: [0, -24] // Customize the popup anchor\n});\n\n// Add the OpenStreetMap tile layer\nL.tileLayer(\"https://tile.openstreetmap.org/{z}/{x}/{y}.png\", {\n  attribution: '&copy; &lt;a href=\"https://www.openstreetmap.org/copyright\"&gt;OpenStreetMap&lt;/a&gt;'\n}).addTo(map);\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfp = bf_points.features.filter(feature =&gt; {\n  const year = parseInt(feature.properties.year); // Convert year to integer\n  return year &lt;= bf2;  // Only keep points with year less than or equal to bf1\n});\n\n// Add markers for each filtered point\nfp.forEach(feature =&gt; {\n  const lat = feature.geometry.coordinates[1]; // Latitude from GeoJSON\n  const lon = feature.geometry.coordinates[0]; // Longitude from GeoJSON\n\n  L.marker([lat, lon], { icon: BigFootIcon })\n    .bindPopup(`\n      &lt;p&gt;&lt;strong&gt;${feature.properties.summary}&lt;/strong&gt;&lt;/p&gt;\n      &lt;p&gt;&lt;strong&gt;Report Date: &lt;/strong&gt;${new Date(feature.properties.report_date).toLocaleDateString()}&lt;/p&gt;\n      &lt;p&gt;&lt;strong&gt;Classification: &lt;/strong&gt;${feature.properties.classification}&lt;/p&gt;\n      &lt;p&gt;&lt;strong&gt;Environment: &lt;/strong&gt;${feature.properties.environment}&lt;/p&gt;\n      &lt;a href=\"${feature.properties.url}\" target=\"_blank\"&gt;Read full report&lt;/a&gt;\n    `)\n    .addTo(map);\n});\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nmd`Active sticky: ${crActiveSticky}`\n\n\n\n\n\n\n\nmd`Active trigger: ${crTriggerIndex}`\n\n\n\n\n\n\n\nmd`Trigger progress: ${(crTriggerProgress * 100).toFixed(1)}%`\n\n\n\n\n\n\n\nmd`Scroll direction: ${crDirection}`\n\n\n\n\n\n\n\nmd`Progress Block progress: ${(crProgressBlock * 100).toFixed(1)}%`\n\n\n\n\n\n\n\nmd`-----`\n\n\n\n\n\n\n\nmd`(derived) Angle 1: ${bf1.toFixed(1)}°`\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0.\nThe cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0.\nThe cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0.\nThe cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0.\nThe cities above wrap the entire globe, so to view them all we’ll need to be give the user the ability to spin the globe. We’ll map the progress of the user’s scroll, stored in a variable called crProgressBlock, to a variable called angle. The scale.Linear function handles the linear mapping of crProgressBlock going from 0 to 1 to angle going from -180 to 0.\n\nconsole.log(bf_points);\n\n\n\n\n\n\n\nbf_points"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
+    "objectID": "ojs.html",
+    "href": "ojs.html",
     "title": "pnw bigfoot sightings",
     "section": "",
-    "text": "“Few creatures have more speculation and anecdotal evidence surrounding them than Sasquatch does…\n\n\n\n\nBefore the 19th century, when stories about the mysterious “ape man” began circulating in the American West, most Native American tribes had their own legends surrounding the enigmatic creature. Sasquatch, most commonly spotted in the Pacific Northwest, is usually described as a bipedal ape-like creature, significantly larger than the average man, and completely covered in dark brown or reddish hair.\n\n\n\n\nAlthough the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them.” - Oregon Wild\n\n\n\n\n\n\n\n\n\nlet’s take a look at bigfoot reports in Washington over time.\n\n\n\n\nThere weren’t too many sightings, but things start to change around 1970\n\n\n\n\nThe 80s saw a lot of sightings\n\n\n\n\nAnd from there, bigfoot sightings really took off\n\n\n\n\nBut where are people seeing bigfoot? We have some spatial data to help us explore that question below."
+    "text": "“Few creatures have more speculation and anecdotal evidence surrounding them than Sasquatch does…\n\n\n\n\nBefore the 19th century, when stories about the mysterious “ape man” began circulating in the American West, most Native American tribes had their own legends surrounding the enigmatic creature. Sasquatch, most commonly spotted in the Pacific Northwest, is usually described as a bipedal ape-like creature, significantly larger than the average man, and completely covered in dark brown or reddish hair.\n\n\n\n\nAlthough the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them.”\n\n\n\n\n\n\n\n\n\nlet’s take a look at bigfoot reports in Washington over time.\n\n\n\n\nThere weren’t too many sightings, but things start to change around 1970\n\n\n\n\nThe 80s saw a lot of sightings\n\n\n\n\nAnd from there, bigfoot sightings really took off\n\n\n\n\nBut where are people seeing bigfoot? We have some spatial data to help us explore that question below.\nHere’s the full shiny app!"
   },
   {
-    "objectID": "index.html#heres-the-full-shiny-app",
-    "href": "index.html#heres-the-full-shiny-app",
-    "title": "pnw bigfoot sightings",
-    "section": "Here’s the full shiny app!",
-    "text": "Here’s the full shiny app!"
-  },
-  {
-    "objectID": "index.html#links",
-    "href": "index.html#links",
+    "objectID": "ojs.html#links",
+    "href": "ojs.html#links",
     "title": "pnw bigfoot sightings",
     "section": "Links",
-    "text": "Links\n\nData sources and site details\nAuthors"
-  },
-  {
-    "objectID": "cr-test.html",
-    "href": "cr-test.html",
-    "title": "pnw bigfoot sightings",
-    "section": "",
-    "text": "“Few creatures have more speculation and anecdotal evidence surrounding them than Sasquatch does…\n\n\n\n\nBefore the 19th century, when stories about the mysterious “ape man” began circulating in the American West, most Native American tribes had their own legends surrounding the enigmatic creature. Sasquatch, most commonly spotted in the Pacific Northwest, is usually described as a bipedal ape-like creature, significantly larger than the average man, and completely covered in dark brown or reddish hair.\n\n\n\n\nAlthough the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them.” - Oregon Wild\n\n\n\n\n\n\n\n\n\nlet’s take a look at bigfoot reports in Washington over time.\n\n\n\n\nThere weren’t too many sightings, but things start to change around 1970\n\n\n\n\nThe 80s saw a lot of sightings\n\n\n\n\nAnd from there, bigfoot sightings really took off\n\n\n\n\nBut where are people seeing bigfoot? We have some spatial data to help us explore that question below.\nHere’s the full shiny app!"
-  },
-  {
-    "objectID": "cr-test.html#links",
-    "href": "cr-test.html#links",
-    "title": "pnw bigfoot sightings",
-    "section": "Links",
-    "text": "Links\n\nData sources and site details\nAuthors"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Who we are",
-    "section": "",
-    "text": "Epidemiologist, Data Engineer, Nerd\nQuarto has made me enjoy writing documentation and that just feels wrong.\n\n\n\nAside from data stuff, I’m into reading (I love horror, history, politics, and anything else that is good), movies, hiking, language learning, and soccer. I have a mini microscope that I take with me on hikes so I can see the tiny world within our world. I’m from Detroit, MI (go LIONS!!!!) and am living in Portland, OR.\nHere’s my github profile."
-  },
-  {
-    "objectID": "about.html#frank-aragona",
-    "href": "about.html#frank-aragona",
-    "title": "Who we are",
-    "section": "",
-    "text": "Epidemiologist, Data Engineer, Nerd\nQuarto has made me enjoy writing documentation and that just feels wrong.\n\n\n\nAside from data stuff, I’m into reading (I love horror, history, politics, and anything else that is good), movies, hiking, language learning, and soccer. I have a mini microscope that I take with me on hikes so I can see the tiny world within our world. I’m from Detroit, MI (go LIONS!!!!) and am living in Portland, OR.\nHere’s my github profile."
-  },
-  {
-    "objectID": "about.html#russell-shean",
-    "href": "about.html#russell-shean",
-    "title": "Who we are",
-    "section": "Russell Shean",
-    "text": "Russell Shean\njob title or whatever\nshort description if you’d like! just make sure it’s long enough for both our pics to line up\n\n\n\nlonger description if you’d like! same as above. the images don’t line up well :(\nHere’s my github profile."
+    "text": "Links\nData sources and site details\nAuthors"
   },
   {
     "objectID": "data.html",
@@ -91,17 +42,45 @@
     "text": "General Advice\nThis is all very hacked together. I was pasting random code from chatGPT and other leaflet maps I found on the web to cobble this together. It’s rough, but feels good to have it somewhat work.\nIf you want to use and OJS cell like this, I cannot recommend adding this to your testing document enough. Put this outside of a cr-section so that you can see all the attributes of your scrolling variables. It will let you see how your custom variables get derived based on where the user is on the page:\n:::{.counter style=\"position: fixed; top: 10px; right: 10px; background-color: skyblue; border-radius: 5px; padding: 18px 18px 0 18px; line-height: .8em;\"}\n```{ojs}\nmd`Active sticky: ${crActiveSticky}`\nmd`Active trigger: ${crTriggerIndex}`\nmd`Trigger progress: ${(crTriggerProgress * 100).toFixed(1)}%`\nmd`Scroll direction: ${crDirection}`\nmd`Progress Block progress: ${(crProgressBlock * 100).toFixed(1)}%`\nmd`-----`\nmd`(derived) derived var1: ${bf1.toFixed(1)}°`\nmd`(derived) bf2: ${bf2.toFixed(1)}`\n```\n:::\nIf all else fails, post a discussion in the closeread github site and feel free to tag me. I’d be happy to help and/or learn more about this stuff!"
   },
   {
-    "objectID": "ojs.html",
-    "href": "ojs.html",
-    "title": "pnw bigfoot sightings",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Who we are",
     "section": "",
-    "text": "“Few creatures have more speculation and anecdotal evidence surrounding them than Sasquatch does…\n\n\n\n\nBefore the 19th century, when stories about the mysterious “ape man” began circulating in the American West, most Native American tribes had their own legends surrounding the enigmatic creature. Sasquatch, most commonly spotted in the Pacific Northwest, is usually described as a bipedal ape-like creature, significantly larger than the average man, and completely covered in dark brown or reddish hair.\n\n\n\n\nAlthough the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them.”\n\n\n\n\n\n\n\n\n\nlet’s take a look at bigfoot reports in Washington over time.\n\n\n\n\nThere weren’t too many sightings, but things start to change around 1970\n\n\n\n\nThe 80s saw a lot of sightings\n\n\n\n\nAnd from there, bigfoot sightings really took off\n\n\n\n\nBut where are people seeing bigfoot? We have some spatial data to help us explore that question below.\nHere’s the full shiny app!"
+    "text": "Epidemiologist, Data Engineer, Nerd\nQuarto has made me enjoy writing documentation and that just feels wrong.\n\n\n\nAside from data stuff, I’m into reading (I love horror, history, politics, and anything else that is good), movies, hiking, language learning, and soccer. I have a mini microscope that I take with me on hikes so I can see the tiny world within our world. I’m from Detroit, MI (go LIONS!!!!) and am living in Portland, OR.\nHere’s my github profile."
   },
   {
-    "objectID": "ojs.html#links",
-    "href": "ojs.html#links",
+    "objectID": "about.html#frank-aragona",
+    "href": "about.html#frank-aragona",
+    "title": "Who we are",
+    "section": "",
+    "text": "Epidemiologist, Data Engineer, Nerd\nQuarto has made me enjoy writing documentation and that just feels wrong.\n\n\n\nAside from data stuff, I’m into reading (I love horror, history, politics, and anything else that is good), movies, hiking, language learning, and soccer. I have a mini microscope that I take with me on hikes so I can see the tiny world within our world. I’m from Detroit, MI (go LIONS!!!!) and am living in Portland, OR.\nHere’s my github profile."
+  },
+  {
+    "objectID": "about.html#russell-shean",
+    "href": "about.html#russell-shean",
+    "title": "Who we are",
+    "section": "Russell Shean",
+    "text": "Russell Shean\njob title or whatever\nshort description if you’d like! just make sure it’s long enough for both our pics to line up\n\n\n\nlonger description if you’d like! same as above. the images don’t line up well :(\nHere’s my github profile."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "pnw bigfoot sightings",
+    "section": "",
+    "text": "“Few creatures have more speculation and anecdotal evidence surrounding them than Sasquatch does…\n\n\n\n\nBefore the 19th century, when stories about the mysterious “ape man” began circulating in the American West, most Native American tribes had their own legends surrounding the enigmatic creature. Sasquatch, most commonly spotted in the Pacific Northwest, is usually described as a bipedal ape-like creature, significantly larger than the average man, and completely covered in dark brown or reddish hair.\n\n\n\n\nAlthough the scientific community remains skeptical and little evidence exists in support of a modern day Bigfoot, there are a lot of people out there who are confident that some sort of ape-man roams through the depths of North America’s most remote forests and devote their lives to finding them.” - Oregon Wild\n\n\n\n\n\n\n\n\n\nlet’s take a look at bigfoot reports in Washington over time.\n\n\n\n\nThere weren’t too many sightings, but things start to change around 1970\n\n\n\n\nThe 80s saw a lot of sightings\n\n\n\n\nAnd from there, bigfoot sightings really took off\n\n\n\n\nBut where are people seeing bigfoot? We have some spatial data to help us explore that question below."
+  },
+  {
+    "objectID": "index.html#heres-the-full-shiny-app",
+    "href": "index.html#heres-the-full-shiny-app",
+    "title": "pnw bigfoot sightings",
+    "section": "Here’s the full shiny app!",
+    "text": "Here’s the full shiny app!"
+  },
+  {
+    "objectID": "index.html#links",
+    "href": "index.html#links",
     "title": "pnw bigfoot sightings",
     "section": "Links",
-    "text": "Links\nData sources and site details\nAuthors"
+    "text": "Links\n\nData sources and site details\nAuthors"
   }
 ]
