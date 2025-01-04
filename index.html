@@ -219,7 +219,7 @@ Have fun!!! @cr-fire -->
 </div>
 <div class="trigger new-trigger" data-focus-on="cr-time2">
 <div class="narrative">
-<p>There weren’t too many sightings, but things start to change around 1970</p>
+<p>There weren’t too many sightings from 1920-1960, although keep in mind that there is probably some level of reporting bias here. Things start to change around 1970</p>
 </div>
 </div>
 <div class="trigger new-trigger" data-focus-on="cr-time3">
@@ -293,32 +293,32 @@ Have fun!!! @cr-fire -->
 <div class="cr-section cr-column-screen sidebar-left">
 <div class="narrative-col">
 <div class="progress-block">
-<div class="trigger new-trigger" data-focus-on="cr-globe1">
+<div class="trigger new-trigger" data-focus-on="cr-map">
 <div class="narrative">
 <p>This interactive map shows reported sightings in Washington over time. You can zoom in, navigate to an area, and click on the bigfoot icons to learn more about a specific report.</p>
 </div>
 </div>
-<div class="trigger new-trigger" data-focus-on="cr-globe1">
+<div class="trigger new-trigger" data-focus-on="cr-map">
 <div class="narrative">
 <p>There weren’t many sightings in the 1940s.</p>
 </div>
 </div>
-<div class="trigger new-trigger" data-focus-on="cr-globe1">
+<div class="trigger new-trigger" data-focus-on="cr-map">
 <div class="narrative">
 <p>The 60s is where things get interesting…</p>
 </div>
 </div>
-<div class="trigger new-trigger" data-focus-on="cr-globe1">
+<div class="trigger new-trigger" data-focus-on="cr-map">
 <div class="narrative">
-<p>Way more sightings in the 1980s.</p>
+<p>Way more sightings in the 1970s - 1980s.</p>
 </div>
 </div>
-<div class="trigger new-trigger" data-focus-on="cr-globe1">
+<div class="trigger new-trigger" data-focus-on="cr-map">
 <div class="narrative">
-<p>And more in the 2000s</p>
+<p>And more in the 1990s-2000s</p>
 </div>
 </div>
-<div class="trigger new-trigger" data-focus-on="cr-globe1">
+<div class="trigger new-trigger" data-focus-on="cr-map">
 <div class="narrative">
 <p>Here’s up until 2020</p>
 </div>
@@ -327,7 +327,7 @@ Have fun!!! @cr-fire -->
 </div>
 <div class="sticky-col">
 <div class="sticky-col-stack">
-<div id="cr-globe1" class="sticky">
+<div id="cr-map" class="sticky">
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Code</summary>
@@ -448,7 +448,7 @@ Have fun!!! @cr-fire -->
 <span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a>  L<span class="op">.</span><span class="fu">marker</span>([lat<span class="op">,</span> lon]<span class="op">,</span> { <span class="dt">icon</span><span class="op">:</span> BigFootIcon })</span>
 <span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">bindPopup</span>(<span class="vs">`</span></span>
 <span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;p&gt;&lt;strong&gt;</span><span class="sc">${</span>feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">summary</span><span class="sc">}</span><span class="vs">&lt;/strong&gt;&lt;/p&gt;</span></span>
-<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;p&gt;&lt;strong&gt;Report Date: &lt;/strong&gt;</span><span class="sc">${</span><span class="kw">new</span> <span class="bu">Date</span>(feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">report_date</span>)<span class="op">.</span><span class="fu">toLocaleDateString</span>()<span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;p&gt;&lt;strong&gt;Report Date: &lt;/strong&gt;</span><span class="sc">${</span><span class="kw">new</span> <span class="bu">Date</span>(feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">year_as_date</span>)<span class="op">.</span><span class="fu">toLocaleDateString</span>()<span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
 <span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;p&gt;&lt;strong&gt;Classification: &lt;/strong&gt;</span><span class="sc">${</span>feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">classification</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
 <span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;p&gt;&lt;strong&gt;Environment: &lt;/strong&gt;</span><span class="sc">${</span>feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">environment</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
 <span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a><span class="vs">        &lt;a href="</span><span class="sc">${</span>feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">url</span><span class="sc">}</span><span class="vs">" target="_blank"&gt;Read full report&lt;/a&gt;</span></span>
@@ -493,7 +493,7 @@ Have fun!!! @cr-fire -->
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IkwgPSB7XG4gIGNvbnN0IEwgPSBhd2FpdCByZXF1aXJlKFwibGVhZmxldC9kaXN0L2xlYWZsZXQuanNcIik7XG4gIGlmICghTC5fc3R5bGUpIHtcbiAgICBjb25zdCBocmVmID0gYXdhaXQgcmVxdWlyZS5yZXNvbHZlKFwibGVhZmxldC9kaXN0L2xlYWZsZXQuY3NzXCIpO1xuICAgIGRvY3VtZW50LmhlYWQuYXBwZW5kQ2hpbGQoTC5fc3R5bGUgPSBodG1sYDxsaW5rIGhyZWY9JHtocmVmfSByZWw9c3R5bGVzaGVldD5gKTtcbiAgfVxuXG4gIHJldHVybiBMO1xufTtcbi8vIEwgPSByZXF1aXJlKFwibGVhZmxldC9kaXN0L2xlYWZsZXQuanNcIik7XG5cbmJmX3BvaW50cyA9IEZpbGVBdHRhY2htZW50KFwiZGF0YS9iaWdmb290X3BvaW50cy5nZW9qc29uXCIpLmpzb24oKTtcbmJmU2NhbGUyID0gZDMuc2NhbGVMaW5lYXIoKVxuICAuZG9tYWluKFs3LCAxMl0pXG4gIC5yYW5nZShbMTkzMCwgMjAyMF0pXG4gIC5jbGFtcCh0cnVlKVxuICAgIFxuYmYyID0gYmZTY2FsZTIoY3JUcmlnZ2VySW5kZXgpXG5cbmRpdiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG5kaXYuc3R5bGUgPSBcImhlaWdodDogNDAwcHg7d2lkdGg6IDYwMHB4O1wiO1xuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gdXNpbmcgdGhlIGNyUHJvZ3Jlc3NCbG9jayB3b24ndCB3b3JrIGJlY2F1c2UgSSBoYXZlIG92ZXJmbG93OiBoaWRkZW4gZm9yIHRoZSBodG1sIGNzcyBmb3IgcGFyYWxsYXggZWZmZWN0cyA6KFxuLy8gYmZTY2FsZTEgPSBkMy5zY2FsZUxpbmVhcigpXG4vLyAgIC5kb21haW4oWzAsIDFdKVxuLy8gICAucmFuZ2UoWzE5MjAsIDIwMjVdKVxuLy8gICAuY2xhbXAodHJ1ZSlcbiAgICBcbi8vIGJmMSA9IGJmU2NhbGUxKGNyUHJvZ3Jlc3NCbG9jaylcblxuXG5cbm1hcCA9IEwubWFwKGRpdilcbiAgLnNldFZpZXcoWzQ3LjYwOTcsIC0xMjIuMzMzMV0sIDUpO1xuXG5CaWdGb290SWNvbiA9IEwuaWNvbih7XG4gIGljb25Vcmw6ICdodHRwczovL2ltYWdlcy5maW5lYXJ0YW1lcmljYS5jb20vaW1hZ2VzL2FydHdvcmtpbWFnZXMvbWVkaXVtLzMvZ2x1dGVuLWZyZWUtY3V0ZS1iaWdmb290LWNhcnRvb24tbm9pcnR5LWRlc2lnbnMtdHJhbnNwYXJlbnQucG5nJyxcbiAgaWNvblNpemU6IFszOCwgMzhdLCAvLyBDdXN0b21pemUgc2l6ZVxuICBpY29uQW5jaG9yOiBbMjIsIDI0XSwgLy8gQ3VzdG9taXplIHRoZSBhbmNob3JcbiAgcG9wdXBBbmNob3I6IFswLCAtMjRdIC8vIEN1c3RvbWl6ZSB0aGUgcG9wdXAgYW5jaG9yXG59KTtcblxuXG5tYXAyID0gTC50aWxlTGF5ZXIoXCJodHRwczovL3RpbGUub3BlbnN0cmVldG1hcC5vcmcve3p9L3t4fS97eX0ucG5nXCIsIHtcbiAgYXR0cmlidXRpb246ICcmY29weTsgPGEgaHJlZj1cImh0dHBzOi8vd3d3Lm9wZW5zdHJlZXRtYXAub3JnL2NvcHlyaWdodFwiPk9wZW5TdHJlZXRNYXA8L2E+J1xufSlcbiAgLmFkZFRvKG1hcCk7XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbi8vIEZpbHRlciB0aGUgcG9pbnRzIGJhc2VkIG9uIHRoZSB5ZWFyIChwcm9wZXJ0aWVzLnllYXIpXG5mcCA9IGJmX3BvaW50cy5mZWF0dXJlcy5maWx0ZXIoZmVhdHVyZSA9PiB7XG4gIGNvbnN0IHllYXIgPSBwYXJzZUludChmZWF0dXJlLnByb3BlcnRpZXMueWVhcik7IC8vIENvbnZlcnQgeWVhciB0byBpbnRlZ2VyXG4gIHJldHVybiB5ZWFyIDw9IGJmMjsgIC8vIE9ubHkga2VlcCBwb2ludHMgd2l0aCB5ZWFyIGxlc3MgdGhhbiBvciBlcXVhbCB0byBiZjFcbn0pO1xuXG4vLyBBZGQgbWFya2VycyBmb3IgZWFjaCBmaWx0ZXJlZCBwb2ludFxuZnAuZm9yRWFjaChmZWF0dXJlID0+IHtcbiAgY29uc3QgbGF0ID0gZmVhdHVyZS5nZW9tZXRyeS5jb29yZGluYXRlc1sxXTsgLy8gTGF0aXR1ZGUgZnJvbSBHZW9KU09OXG4gIGNvbnN0IGxvbiA9IGZlYXR1cmUuZ2VvbWV0cnkuY29vcmRpbmF0ZXNbMF07IC8vIExvbmdpdHVkZSBmcm9tIEdlb0pTT05cblxuICBMLm1hcmtlcihbbGF0LCBsb25dLCB7IGljb246IEJpZ0Zvb3RJY29uIH0pXG4gICAgLmJpbmRQb3B1cChgXG4gICAgICAgIDxwPjxzdHJvbmc+JHtmZWF0dXJlLnByb3BlcnRpZXMuc3VtbWFyeX08L3N0cm9uZz48L3A+XG4gICAgICAgIDxwPjxzdHJvbmc+UmVwb3J0IERhdGU6IDwvc3Ryb25nPiR7bmV3IERhdGUoZmVhdHVyZS5wcm9wZXJ0aWVzLnJlcG9ydF9kYXRlKS50b0xvY2FsZURhdGVTdHJpbmcoKX08L3A+XG4gICAgICAgIDxwPjxzdHJvbmc+Q2xhc3NpZmljYXRpb246IDwvc3Ryb25nPiR7ZmVhdHVyZS5wcm9wZXJ0aWVzLmNsYXNzaWZpY2F0aW9ufTwvcD5cbiAgICAgICAgPHA+PHN0cm9uZz5FbnZpcm9ubWVudDogPC9zdHJvbmc+JHtmZWF0dXJlLnByb3BlcnRpZXMuZW52aXJvbm1lbnR9PC9wPlxuICAgICAgICA8YSBocmVmPVwiJHtmZWF0dXJlLnByb3BlcnRpZXMudXJsfVwiIHRhcmdldD1cIl9ibGFua1wiPlJlYWQgZnVsbCByZXBvcnQ8L2E+XG4gICAgYClcbiAgICAuYWRkVG8obWFwKTtcbn0pO1xuXG4ifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IkwgPSB7XG4gIGNvbnN0IEwgPSBhd2FpdCByZXF1aXJlKFwibGVhZmxldC9kaXN0L2xlYWZsZXQuanNcIik7XG4gIGlmICghTC5fc3R5bGUpIHtcbiAgICBjb25zdCBocmVmID0gYXdhaXQgcmVxdWlyZS5yZXNvbHZlKFwibGVhZmxldC9kaXN0L2xlYWZsZXQuY3NzXCIpO1xuICAgIGRvY3VtZW50LmhlYWQuYXBwZW5kQ2hpbGQoTC5fc3R5bGUgPSBodG1sYDxsaW5rIGhyZWY9JHtocmVmfSByZWw9c3R5bGVzaGVldD5gKTtcbiAgfVxuXG4gIHJldHVybiBMO1xufTtcbi8vIEwgPSByZXF1aXJlKFwibGVhZmxldC9kaXN0L2xlYWZsZXQuanNcIik7XG5cbmJmX3BvaW50cyA9IEZpbGVBdHRhY2htZW50KFwiZGF0YS9iaWdmb290X3BvaW50cy5nZW9qc29uXCIpLmpzb24oKTtcbmJmU2NhbGUyID0gZDMuc2NhbGVMaW5lYXIoKVxuICAuZG9tYWluKFs3LCAxMl0pXG4gIC5yYW5nZShbMTkzMCwgMjAyMF0pXG4gIC5jbGFtcCh0cnVlKVxuICAgIFxuYmYyID0gYmZTY2FsZTIoY3JUcmlnZ2VySW5kZXgpXG5cbmRpdiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG5kaXYuc3R5bGUgPSBcImhlaWdodDogNDAwcHg7d2lkdGg6IDYwMHB4O1wiO1xuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gdXNpbmcgdGhlIGNyUHJvZ3Jlc3NCbG9jayB3b24ndCB3b3JrIGJlY2F1c2UgSSBoYXZlIG92ZXJmbG93OiBoaWRkZW4gZm9yIHRoZSBodG1sIGNzcyBmb3IgcGFyYWxsYXggZWZmZWN0cyA6KFxuLy8gYmZTY2FsZTEgPSBkMy5zY2FsZUxpbmVhcigpXG4vLyAgIC5kb21haW4oWzAsIDFdKVxuLy8gICAucmFuZ2UoWzE5MjAsIDIwMjVdKVxuLy8gICAuY2xhbXAodHJ1ZSlcbiAgICBcbi8vIGJmMSA9IGJmU2NhbGUxKGNyUHJvZ3Jlc3NCbG9jaylcblxuXG5cbm1hcCA9IEwubWFwKGRpdilcbiAgLnNldFZpZXcoWzQ3LjYwOTcsIC0xMjIuMzMzMV0sIDUpO1xuXG5CaWdGb290SWNvbiA9IEwuaWNvbih7XG4gIGljb25Vcmw6ICdodHRwczovL2ltYWdlcy5maW5lYXJ0YW1lcmljYS5jb20vaW1hZ2VzL2FydHdvcmtpbWFnZXMvbWVkaXVtLzMvZ2x1dGVuLWZyZWUtY3V0ZS1iaWdmb290LWNhcnRvb24tbm9pcnR5LWRlc2lnbnMtdHJhbnNwYXJlbnQucG5nJyxcbiAgaWNvblNpemU6IFszOCwgMzhdLCAvLyBDdXN0b21pemUgc2l6ZVxuICBpY29uQW5jaG9yOiBbMjIsIDI0XSwgLy8gQ3VzdG9taXplIHRoZSBhbmNob3JcbiAgcG9wdXBBbmNob3I6IFswLCAtMjRdIC8vIEN1c3RvbWl6ZSB0aGUgcG9wdXAgYW5jaG9yXG59KTtcblxuXG5tYXAyID0gTC50aWxlTGF5ZXIoXCJodHRwczovL3RpbGUub3BlbnN0cmVldG1hcC5vcmcve3p9L3t4fS97eX0ucG5nXCIsIHtcbiAgYXR0cmlidXRpb246ICcmY29weTsgPGEgaHJlZj1cImh0dHBzOi8vd3d3Lm9wZW5zdHJlZXRtYXAub3JnL2NvcHlyaWdodFwiPk9wZW5TdHJlZXRNYXA8L2E+J1xufSlcbiAgLmFkZFRvKG1hcCk7XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbi8vIEZpbHRlciB0aGUgcG9pbnRzIGJhc2VkIG9uIHRoZSB5ZWFyIChwcm9wZXJ0aWVzLnllYXIpXG5mcCA9IGJmX3BvaW50cy5mZWF0dXJlcy5maWx0ZXIoZmVhdHVyZSA9PiB7XG4gIGNvbnN0IHllYXIgPSBwYXJzZUludChmZWF0dXJlLnByb3BlcnRpZXMueWVhcik7IC8vIENvbnZlcnQgeWVhciB0byBpbnRlZ2VyXG4gIHJldHVybiB5ZWFyIDw9IGJmMjsgIC8vIE9ubHkga2VlcCBwb2ludHMgd2l0aCB5ZWFyIGxlc3MgdGhhbiBvciBlcXVhbCB0byBiZjFcbn0pO1xuXG4vLyBBZGQgbWFya2VycyBmb3IgZWFjaCBmaWx0ZXJlZCBwb2ludFxuZnAuZm9yRWFjaChmZWF0dXJlID0+IHtcbiAgY29uc3QgbGF0ID0gZmVhdHVyZS5nZW9tZXRyeS5jb29yZGluYXRlc1sxXTsgLy8gTGF0aXR1ZGUgZnJvbSBHZW9KU09OXG4gIGNvbnN0IGxvbiA9IGZlYXR1cmUuZ2VvbWV0cnkuY29vcmRpbmF0ZXNbMF07IC8vIExvbmdpdHVkZSBmcm9tIEdlb0pTT05cblxuICBMLm1hcmtlcihbbGF0LCBsb25dLCB7IGljb246IEJpZ0Zvb3RJY29uIH0pXG4gICAgLmJpbmRQb3B1cChgXG4gICAgICAgIDxwPjxzdHJvbmc+JHtmZWF0dXJlLnByb3BlcnRpZXMuc3VtbWFyeX08L3N0cm9uZz48L3A+XG4gICAgICAgIDxwPjxzdHJvbmc+UmVwb3J0IERhdGU6IDwvc3Ryb25nPiR7bmV3IERhdGUoZmVhdHVyZS5wcm9wZXJ0aWVzLnllYXJfYXNfZGF0ZSkudG9Mb2NhbGVEYXRlU3RyaW5nKCl9PC9wPlxuICAgICAgICA8cD48c3Ryb25nPkNsYXNzaWZpY2F0aW9uOiA8L3N0cm9uZz4ke2ZlYXR1cmUucHJvcGVydGllcy5jbGFzc2lmaWNhdGlvbn08L3A+XG4gICAgICAgIDxwPjxzdHJvbmc+RW52aXJvbm1lbnQ6IDwvc3Ryb25nPiR7ZmVhdHVyZS5wcm9wZXJ0aWVzLmVudmlyb25tZW50fTwvcD5cbiAgICAgICAgPGEgaHJlZj1cIiR7ZmVhdHVyZS5wcm9wZXJ0aWVzLnVybH1cIiB0YXJnZXQ9XCJfYmxhbmtcIj5SZWFkIGZ1bGwgcmVwb3J0PC9hPlxuICAgIGApXG4gICAgLmFkZFRvKG1hcCk7XG59KTtcblxuIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
