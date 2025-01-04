@@ -40,7 +40,7 @@
 }
 .cr-section .sticky-col .sticky-col-stack {
   display: grid;
-  height: 100dvh;
+  height: 80dvh;
   position: sticky;
   overflow: hidden;
   top: 0;

@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://edenian-prince.github.io/bigfoot-closeread/ojs.html</loc>
-    <lastmod>2025-01-03T22:37:11.161Z</lastmod>
-  </url>
-  <url>
-    <loc>https://edenian-prince.github.io/bigfoot-closeread/data.html</loc>
-    <lastmod>2025-01-03T22:37:11.005Z</lastmod>
-  </url>
-  <url>
-    <loc>https://edenian-prince.github.io/bigfoot-closeread/about.html</loc>
-    <lastmod>2025-01-03T22:37:11.005Z</lastmod>
-  </url>
-  <url>
-    <loc>https://edenian-prince.github.io/bigfoot-closeread/cr-test.html</loc>
-    <lastmod>2025-01-03T22:37:11.005Z</lastmod>
+    <loc>https://edenian-prince.github.io/bigfoot-closeread/test.html</loc>
+    <lastmod>2025-01-04T18:23:22.379Z</lastmod>
   </url>
   <url>
     <loc>https://edenian-prince.github.io/bigfoot-closeread/index.html</loc>
-    <lastmod>2025-01-03T22:37:11.161Z</lastmod>
+    <lastmod>2025-01-04T18:23:22.363Z</lastmod>
+  </url>
+  <url>
+    <loc>https://edenian-prince.github.io/bigfoot-closeread/cr-test.html</loc>
+    <lastmod>2025-01-04T18:23:22.223Z</lastmod>
+  </url>
+  <url>
+    <loc>https://edenian-prince.github.io/bigfoot-closeread/about.html</loc>
+    <lastmod>2025-01-04T18:23:22.223Z</lastmod>
+  </url>
+  <url>
+    <loc>https://edenian-prince.github.io/bigfoot-closeread/data.html</loc>
+    <lastmod>2025-01-04T18:23:22.223Z</lastmod>
+  </url>
+  <url>
+    <loc>https://edenian-prince.github.io/bigfoot-closeread/ojs.html</loc>
+    <lastmod>2025-01-04T18:23:22.379Z</lastmod>
   </url>
 </urlset>
