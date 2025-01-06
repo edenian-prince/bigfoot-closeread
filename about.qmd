@@ -30,16 +30,17 @@ Here's my [github profile](https://github.com/edenian-prince).
 
 ## [Russell Shean](https://github.com/Russell-Shean)
 
-**Epidemiologist, Data Viz**
+**Epidemiologist, Data Scientist, Bigfoot enthusiast**
 
-short description if you'd like! just make sure it's long enough for both our pics to line up
+Russ is a data scientist and epidemiologist currently at the Washington State Department of Health. 
 
 <table>
 <tr><td valign="top">
 
-longer description if you'd like! same as above. the images don't line up well :(
+Russ was raised in the woods by hippies and wolves and as a result first met Uncle Bigfoot at a very young age. You can keep up with Russ's exploits, serious and unserious, on <a href="https://bsky.app/profile/rshean.bsky.social">Bluesky</a>. There may be some serious and useful open-source software and data visualization projects mixed in with the (also totally serious) stuff about bigfeets, UFOs, and the location of fire hydrants in Rhode Island. 
 
-Here's my [github profile](https://github.com/Russell-Shean).
+Here's my [GitHub profile](https://github.com/Russell-Shean).
+Here's my [Linkedin profile](https://www.linkedin.com/in/russell-shean/)
 
 </td><td valign="top">
 [![](images/russell.jpg){style="border: 5px solid black; padding: 5px;" width=250}](https://github.com/Russell-Shean)
