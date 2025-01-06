@@ -294,7 +294,7 @@ fp.forEach(feature => {
 ::: {.column-page}
 
 ```{=html}
-<iframe id="bigfoots-map" width="1400" height="800" src="https://russellshean.shinyapps.io/bigfoot-map-shiny" title="bigfoot-shiny-app"></iframe>
+<iframe id="bigfoots-map" width=100% height="800" src="https://russellshean.shinyapps.io/bigfoot-map-shiny" title="bigfoot-shiny-app"></iframe>
 ```
 :::
 
