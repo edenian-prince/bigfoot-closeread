@@ -7,9 +7,15 @@ format:
                 
 ---
 
-## Where we got it
+## Why Bigfoot sightings? 
+Why not Bigfoot sightings??????     
 
-Data source, scraping, and processing details can be found here in [Russell's GitHub repo](https://github.com/Russell-Shean/bigfoot_sightings)
+
+This project was adapted from a bigfoot shiny dashboard Russ built a while back. The full dashboard can be seen <a href= "https://russellshean.shinyapps.io/bigfoot_sightings2/">here</a>
+
+Data source, scraping, and processing details can be found here in [Russell's GitHub repo](https://github.com/Russell-Shean/bigfoot_sightings).    
+
+The GitHub repo also, (sort of), explains how we built the interactive leaflet map and the rest of the shiny dashboard including its custom Javascript and CSS. 
 
 tl;dr - The data was scraped from a [bigfoot sightings database](https://www.bfro.net/GDB/) using a python script, cleaned in R, and then Russell made a sweet Shiny app displaying the results. We then adapted the outputs for this closeread doc.
 
