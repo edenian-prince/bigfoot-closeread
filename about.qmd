@@ -30,7 +30,7 @@ Here's my [github profile](https://github.com/edenian-prince).
 
 ## [Russell Shean](https://github.com/Russell-Shean)
 
-**Epidemiologist, Data Scientist, Bigfoot enthusiast**
+**Epidemiologist, Data Scientist, Bigfoot Enthusiast**
 
 Russ is a data scientist and epidemiologist currently at the Washington State Department of Health. 
 
@@ -43,7 +43,7 @@ Here's my [GitHub profile](https://github.com/Russell-Shean).
 Here's my [Linkedin profile](https://www.linkedin.com/in/russell-shean/)
 
 </td><td valign="top">
-[![](images/russell.jpg){style="border: 5px solid black; padding: 5px;" width=1000}](https://github.com/Russell-Shean)
+[![](images/russell.jpg){style="border: 5px solid black; padding: 5px;" width=1300}](https://github.com/Russell-Shean)
 </td>
 </tr>
 </table>
