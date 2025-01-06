@@ -18,14 +18,14 @@
     "href": "data.html",
     "title": "Data Sources and Details",
     "section": "",
-    "text": "Data source, scraping, and processing details can be found here in Russell’s GitHub repo\ntl;dr - The data was scraped from a bigfoot sightings database using a python script, cleaned in R, and then Russell made a sweet Shiny app displaying the results. We then adapted the outputs for this closeread doc."
+    "text": "Why not Bigfoot sightings??????\nThis project was adapted from a bigfoot shiny dashboard Russ built a while back. The full dashboard can be seen here\nData source, scraping, and processing details can be found here in Russell’s GitHub repo.\nThe GitHub repo also, (sort of), explains how we built the interactive leaflet map and the rest of the shiny dashboard including its custom Javascript and CSS.\ntl;dr - The data was scraped from a bigfoot sightings database using a python script, cleaned in R, and then Russell made a sweet Shiny app displaying the results. We then adapted the outputs for this closeread doc."
   },
   {
-    "objectID": "data.html#where-we-got-it",
-    "href": "data.html#where-we-got-it",
+    "objectID": "data.html#why-bigfoot-sightings",
+    "href": "data.html#why-bigfoot-sightings",
     "title": "Data Sources and Details",
     "section": "",
-    "text": "Data source, scraping, and processing details can be found here in Russell’s GitHub repo\ntl;dr - The data was scraped from a bigfoot sightings database using a python script, cleaned in R, and then Russell made a sweet Shiny app displaying the results. We then adapted the outputs for this closeread doc."
+    "text": "Why not Bigfoot sightings??????\nThis project was adapted from a bigfoot shiny dashboard Russ built a while back. The full dashboard can be seen here\nData source, scraping, and processing details can be found here in Russell’s GitHub repo.\nThe GitHub repo also, (sort of), explains how we built the interactive leaflet map and the rest of the shiny dashboard including its custom Javascript and CSS.\ntl;dr - The data was scraped from a bigfoot sightings database using a python script, cleaned in R, and then Russell made a sweet Shiny app displaying the results. We then adapted the outputs for this closeread doc."
   },
   {
     "objectID": "data.html#how-we-made-it",
@@ -60,7 +60,7 @@
     "href": "about.html#russell-shean",
     "title": "Who we are",
     "section": "Russell Shean",
-    "text": "Russell Shean\nEpidemiologist, Data Scientist, Bigfoot enthusiast\nRuss is a data scientist and epidemiologist currently at the Washington State Department of Health.\n\n\n\nRuss was raised in the woods by hippies and wolves and as a result first met Uncle Bigfoot at a very young age. You can keep up with Russ’s exploits, serious and unserious, on Bluesky. There may be some serious and useful open-source software and data visualization projects mixed in with the (also totally serious) stuff about bigfeets, UFOs, and the location of fire hydrants in Rhode Island.\nHere’s my GitHub profile. Here’s my Linkedin profile"
+    "text": "Russell Shean\nEpidemiologist, Data Scientist, Bigfoot Enthusiast\nRuss is a data scientist and epidemiologist currently at the Washington State Department of Health.\n\n\n\nRuss was raised in the woods by hippies and wolves and as a result first met Uncle Bigfoot at a very young age. You can keep up with Russ’s exploits, serious and unserious, on Bluesky. There may be some serious and useful open-source software and data visualization projects mixed in with the (also totally serious) stuff about bigfeets, UFOs, and the location of fire hydrants in Rhode Island.\nHere’s my GitHub profile. Here’s my Linkedin profile"
   },
   {
     "objectID": "index.html",
