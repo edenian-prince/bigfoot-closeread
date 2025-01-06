@@ -43,7 +43,7 @@ Here's my [GitHub profile](https://github.com/Russell-Shean).
 Here's my [Linkedin profile](https://www.linkedin.com/in/russell-shean/)
 
 </td><td valign="top">
-[![](images/russell.jpg){style="border: 5px solid black; padding: 5px;" width=250}](https://github.com/Russell-Shean)
+[![](images/russell.jpg){style="border: 5px solid black; padding: 5px;" width=1000}](https://github.com/Russell-Shean)
 </td>
 </tr>
 </table>
